@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React JSX via CDN Example</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- Include React, React DOM, and Babel standalone from CDNs -->
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="babel.min.js"></script>
+    <script type="text/babel" src="Button.js"></script> 
+    <script type="text/babel" src="Input.js"></script> 
+    <script type="text/babel" src="Link.js"></script> 
+    <script type="text/babel" src="Container.js"></script> 
+
+    <!-- <script type="text/babel" src="index.js"></script>  -->
+    <script type="text/babel">
+        // Define a simple React component using JSX
+        function MyComponent() {
+            return (
+		<div>
+			<div>
+			    <h1>Hello, React JSX via CDN!</h1>
+			</div>
+			<div>
+			    <h1>Hello, Another React JSX via CDN!</h1>
+			</div>
+
+			<Container id="MyContainer" className="ui-container">
+    			<Button type="button" className="ui-button" disabled={false}> Test Button </Button>
+			<Link href="#" className="ui-link"> Test Link </Link>
+			<Input type="email" id="myEmail" className="ui-textfield" placeholder="Email" name="emailbox"/>
+			<Input type="password" id="mypasswd" className="ui-textfield" placeholder="password" name="passwordbox"/>
+			</Container>
+		</div>
+            );
+        }
+
+        // Render the component into the container element
+        ReactDOM.render(<MyComponent />, document.getElementById('root'));
+    </script>
+</body>
+</html>
+
