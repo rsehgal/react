@@ -15,7 +15,8 @@ const formFields = {
       required:true
     },
   }
-return <GeneralForm formFields={formFields}>Login Form</GeneralForm>;
+const serverUrl='/api/login';
+return <GeneralForm formFields={formFields} serverUrl={serverUrl}>Login Form</GeneralForm>;
 }
 
 export default Login;

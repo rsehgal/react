@@ -2,9 +2,10 @@
 import React, { useState } from 'react';
 import Input from './Input';
 import Label from './Label';
+import axios from 'axios';
 const GeneralForm = (props) => {
 
-  const {formFields} = props;
+  const {formFields,serverUrl='/home'} = props;
 
   const initialFormState = {};
   for (const fieldName in formFields) {
@@ -22,7 +23,7 @@ const GeneralForm = (props) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle login logic here, e.g., send data to a server
     console.log(formData);
@@ -50,6 +51,14 @@ const GeneralForm = (props) => {
     console.log(JSON.stringify({dataToSave : formData}));
     
     setFormData(initialFormState); // Reset the form after submission
+
+    try {
+    const response = await axios.post(serverUrl, formData);
+    console.log('Login successful', response.data);
+    // You can redirect the user to another page upon successful login.
+    } catch (error) {
+     console.error('Login failed', error);
+    }
   };
 
   return (
