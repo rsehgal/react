@@ -40,7 +40,22 @@ const Navbar = ({ setActiveComponent }) => {
 		{
 		 label:"Advisory Committee",
 		 handler:"Advisory Committee"
-		},
+		},{
+		 label:"Latex Test",
+		 handler:"Latex Test"
+		},{
+		 label:"Proceedings",
+		 handler:"Proceedings"
+		},{
+		 label:"Upload",
+		 handler:"Upload"
+		},,{
+			label:"Change Password",
+			handler:"Change Password"
+		   },
+
+
+
 	      ];
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-warning">

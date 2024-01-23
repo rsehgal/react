@@ -9,6 +9,11 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from './Table';
 import Committee from './Committee';
+import MyQRCode from './QRCode';
+//import MyQRReader from './MyQRReader';
+//import QRR from "./QRReader";
+//import MyQRReader from './QRReader';
+//import Latex from './Latex';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const data = [
@@ -20,7 +25,8 @@ const data = [
     //<App urll='/api/data/OrgComm'/>
 root.render(
   <React.StrictMode>
-    <NewApp />
+  <NewApp />   
+    
   </React.StrictMode>
 );
 

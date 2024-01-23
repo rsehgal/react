@@ -1,25 +1,18 @@
 // src/Table.js
 import React from 'react';
-
-const Table = ({ data, type }) => {
+import LatexComp from './Latex';
+const TableProc = ({ data, id, type }) => {
   const headers = Object.keys(data[0] || {});
 
   return (
     <>
-    <h3 className='text-success'>{type}</h3>
+    <h3 className='text-success' id={id}>{type}</h3>
     <table className="table">
-      <thead>
-        <tr>
-          {headers.map((header) => (
-            <th key={header}>{header}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
+       <tbody>
         {data.map((item, index) => (
           <tr key={index}>
             {headers.map((header) => (
-		(<td key={header}>{item[header]}</td>)
+		(<td key={header}><LatexComp>{item[header]}</LatexComp></td>)
             ))}
           </tr>
         ))}
@@ -29,5 +22,5 @@ const Table = ({ data, type }) => {
   );
 };
 
-export default Table;
+export default TableProc;
 

@@ -32,7 +32,8 @@ const formFields = {firstname: {
       required:true
     } 
 }
-return <GeneralForm formFields={formFields}>Create New Account</GeneralForm>;
+const serverUrl='/api/saveCredentials';
+return <GeneralForm formFields={formFields} serverUrl={serverUrl}>Create New Account</GeneralForm>;
 }
 
 export default Signup;

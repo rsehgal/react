@@ -65,13 +65,16 @@ app.post('/api/login', (req, res) => {
   console.log(email);
   console.log(password);
   
-  con.query("SELECT * FROM user_credentials where email='"+email+"'", function (err, result, fields) {
-    if (err) throw err;
+ /* con.query("SELECT * FROM user_credentials where email='"+email+"'", function (err, result, fields) {
+    if (err) {
+	alert("Errorrrr....");
+throw err;
+}
     console.log(result[0].passwd);
     if(password===result[0].passwd)
 	res.json({message:"Congratulations Login Successfull"});
     
-  });
+  });*/
 });
 
 
