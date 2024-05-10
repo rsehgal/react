@@ -6,26 +6,26 @@ const Table = ({ data, type }) => {
 
   return (
     <>
-    <h3 className='text-success'>{type}</h3>
-    <table className="table">
-      <thead>
-        <tr>
-          {headers.map((header) => (
-            <th key={header}>{header}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item, index) => (
-          <tr key={index}>
+      <h3 className='text-success'>{type}</h3>
+      <table className="table">
+        <thead>
+          <tr>
             {headers.map((header) => (
-		(<td key={header}>{item[header]}</td>)
+              <th key={header}>{header}</th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
-   </>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr key={index}>
+              {headers.map((header) => (
+                (<td key={header}>{item[header]}</td>)
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 };
 

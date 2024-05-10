@@ -11,6 +11,7 @@ import tableJsonData from "./data/table.json";
 import BS_Card_Carousel from "./bscomponents/BS_Card_Carousel";
 import teamJsonData from "./data/team.json";
 import Login from "./pages/Login";
+import Footer from "./components/Footer";
 
 
 function AppBS() {
@@ -30,7 +31,7 @@ function AppBS() {
     <CarouselOnClick />
     <Card_Carousel jsonData={cardsJsonData}/>
     <BS_Carousel  jsonData={jsonData} showCaption/>
-    
+    <Footer />
     
     </>
   );
