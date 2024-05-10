@@ -1,0 +1,45 @@
+[
+    {
+        "img": "bombay.jpeg",
+        "title": "Raman Sehgal",
+        "text": "Here we go",
+        "emojiName":"White Heart"
+    },
+    {
+        "img": "bombay1.jpeg",
+        "title": "Ayush Sehgal",
+        "text": "Here we go",
+        "emojiName": "Red Heart"
+    },
+    {
+        "img": "bombay2.jpeg",
+        "title": "Aryan Sehgal",
+        "text": "Here we go"
+    },
+    {
+        "img": "bombay3.jpeg",
+        "title": "Shachi Sehgal",
+        "text": "Here we go",
+        "emojiName": "Yellow Heart"
+    },
+    {
+        "img": "bombay.jpeg",
+        "title": "Raman Sehgal",
+        "text": "Here we go"
+    },
+    {
+        "img": "bombay1.jpeg",
+        "title": "Ayush Sehgal",
+        "text": "Here we go"
+    },
+    {
+        "img": "bombay2.jpeg",
+        "title": "Aryan Sehgal",
+        "text": "Here we go"
+    },
+    {
+        "img": "bombay3.jpeg",
+        "title": "Shachi Sehgal",
+        "text": "Here we go"
+    }
+]

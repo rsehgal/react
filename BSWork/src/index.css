@@ -1,0 +1,127 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: aquamarine;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.card-image {
+  width: 100%; /* Ensure the image fills the width of its container */
+  border-radius: 4px;
+}
+
+.zoom:hover{
+  transform: scale(1.15);
+}
+
+.zoom{
+  transition: all 0.8s;
+}
+
+.blur-background {
+  filter: blur(5px); /* Adjust the blur intensity as needed */
+}
+
+.carousel-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  display: flex;
+  /*justify-content: center; /* Horizontal center */
+  /*align-items: center; /* Vertical center */
+  z-index: 1001; /* Ensure the carousel is on top of everything */
+
+}
+
+.center-align{
+  
+  justify-content: center; /* Horizontal center */
+  align-items: center; /* Vertical center */
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  z-index: 999; /* Ensure the overlay is behind the carousel but above the content */
+  cursor: pointer;
+}
+
+.carousel-content {
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right:20px;
+  z-index: 1001; /* Ensure the close button is on top of everything */
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.42857;
+}
+
+.custom-carousel {
+  width: 800px; /* Set your desired width */
+  height: 600px; /* Set your desired height */
+}
+
+.custom-carousel .carousel-inner .carousel-item img {
+  width: 100%; /* Make images responsive within the carousel */
+  height: 100%; /* Make images responsive within the carousel */
+}
+
+
+/* Image gradient */
+.gradient-image-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0, 0,150, 0.3), rgba(216, 148, 21, 0)); /* Orange gradient from left to right */
+}
+
+.horizontal-div{
+position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to right, rgba(238, 89, 3, 0.3), rgba(241, 132, 7, 0.973)); /* Orange gradient from left to right */
+}
+
+.emojiLocation {
+  position: absolute;
+  top: 10px;
+  right: 40px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #ffffffe3;
+}
+

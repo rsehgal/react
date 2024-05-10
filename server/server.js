@@ -26,8 +26,8 @@ var mysql = require('mysql2');
 var con = mysql.createConnection({
   host: "localhost",
   user: "sympnp_sympadmin",
-  password: "sympadmin@123",
-  database: "sympnp_sympnp2023"
+  password: "sympadmin",
+  database: "sympnp"
 });
 con.connect((err) => {
   if (err) {
@@ -65,7 +65,7 @@ app.get('/api/data/Proceedingss', (req, res) => {
 });
 app.post('/api/data/ProceedingsIT', (req, res) => {
   console.log(req.body.category);
-  const query = 'SELECT Title,Status,Filename from proceedings2 where Category="'+req.body.category+'"'; // Replace with your table name
+  const query = 'SELECT Title,Status,Filename from proceedings2 where Category="' + req.body.category + '"'; // Replace with your table name
   con.query(query, (err, results) => {
     if (err) {
       throw err;
@@ -76,7 +76,7 @@ app.post('/api/data/ProceedingsIT', (req, res) => {
 
 app.post('/api/data/ProceedingsC', (req, res) => {
   console.log(req.body.category);
-  const query = 'SELECT Title,Status,Filename from proceedings2 where Category="'+req.body.category+'" and topic="'+req.body.topic+'"'; // Replace with your table name
+  const query = 'SELECT Title,Status,Filename from proceedings2 where Category="' + req.body.category + '" and topic="' + req.body.topic + '"'; // Replace with your table name
   con.query(query, (err, results) => {
     if (err) {
       throw err;
@@ -121,20 +121,20 @@ app.post('/api/saveCredentialsss', (req, res) => {
 app.post('/api/upload', (req, res) => {
   console.log(req.headers);
   const form = new formidable.IncomingForm();
-  
-  
+
+
 
   form.parse(req, (err, fields, files) => {
 
-    
-console.log("Entered PARSE");
-console.log(fields);
 
-for (const key in fields){
-console.log(key," : ",fields[key][0]);
-}
-//console.log(fields["uploadFolder"][0]);
-const uploadDir = path.join(__dirname, fields["uploadFolder"][0]);
+    console.log("Entered PARSE");
+    console.log(fields);
+
+    for (const key in fields) {
+      console.log(key, " : ", fields[key][0]);
+    }
+    //console.log(fields["uploadFolder"][0]);
+    const uploadDir = path.join(__dirname, fields["uploadFolder"][0]);
 
     if (err) {
       return res.status(500).json({ error: err.message });
@@ -146,13 +146,13 @@ const uploadDir = path.join(__dirname, fields["uploadFolder"][0]);
     //console.log(files.pdfFile[0].originalFilename);    
     //console.log(files.pdfFile[0].filepath);    
 
-console.log(uploadedFile[0].size);
-     //Move the file to a desired location (in this case, 'uploads' directory)
+    console.log(uploadedFile[0].size);
+    //Move the file to a desired location (in this case, 'uploads' directory)
     const newFilePath = path.join(uploadDir, uploadedFile[0].originalFilename);
     //const newFilePath = '/tmp/'+uploadedFile[0].originalFilename;
-     //console.log(newFilePath);
+    //console.log(newFilePath);
     //fs.rename(files.pdfFile[0].filepath, newFilePath, (err) => {
-      fs.copyFile(files.pdfFile[0].filepath, newFilePath, (copyErr) => {
+    fs.copyFile(files.pdfFile[0].filepath, newFilePath, (copyErr) => {
       if (copyErr) {
         console.log("FILE move error....", err);
         return res.status(500).json({ error: 'Error moving the file' });
@@ -164,7 +164,7 @@ console.log(uploadedFile[0].size);
           // Handle the error
           return;
         }
-    
+
         console.log('File moved successfully');
       });
 
@@ -177,10 +177,10 @@ console.log(uploadedFile[0].size);
   console.log("Upload function called..");
  var form = new formidable.IncomingForm();
 console.log(form.parse(req,(err,fields,files)=>{
-	console.log("hello");
+  console.log("hello");
 }));
  form.parse(req, function (err, fields, files) {
-	console.log("Entered parse....");
+  console.log("Entered parse....");
       var oldpath = files.filetoupload.filepath;
       var newpath = '/home/rsehgal/react/server/uploads/' + files.filetoupload.originalFilename;
       console.log(oldpath);
@@ -214,13 +214,13 @@ app.post('/api/UPPload', (req, res) => {
 });
 
 
-app.post('/api/uploadddddd',(req, res) => {
+app.post('/api/uploadddddd', (req, res) => {
   // 'file' is the name attribute in the form input field
   // Access the uploaded file information through req.file
 
- /* if (!req.file) {
-    return res.status(400).send('No file uploaded.');
-  }*/
+  /* if (!req.file) {
+     return res.status(400).send('No file uploaded.');
+   }*/
 
   // Process the uploaded file as needed
   // For example, you might save the file path in a database
@@ -232,65 +232,65 @@ app.post('/api/uploadddddd',(req, res) => {
 app.post('/api/saveCredentials', (req, res) => {
   console.log(req.headers);
   const form = new formidable.IncomingForm();
-  
+
   form.parse(req, (err, fields, files) => {
 
-    
-console.log("Entered PARSE");
-console.log(fields);
 
-for (const key in fields){
-console.log(key," : ",fields[key][0]);
-}
+    console.log("Entered PARSE");
+    console.log(fields);
+
+    for (const key in fields) {
+      console.log(key, " : ", fields[key][0]);
+    }
 
     if (err) {
       return res.status(500).json({ error: err.message });
     }
 
-    });
   });
+});
 
-  app.post('/api/updateCredentials', (req, res) => {
-    
-    console.log(req.headers);
-    const form = new formidable.IncomingForm();
-    form.parse(req, (err, fields, files) => {
-  
-  console.log(fields);
-  
-  for (const key in fields){
-  console.log(key," : ",fields[key][0]);
-}
+app.post('/api/updateCredentials', (req, res) => {
 
-const sqlTemplate = 'UPDATE test SET ? where ?';
-  const sqlQuery = mysql.format(sqlTemplate, [{password:fields["password"][0]},{email:fields["email"][0]}]);
+  console.log(req.headers);
+  const form = new formidable.IncomingForm();
+  form.parse(req, (err, fields, files) => {
 
+    console.log(fields);
 
-  console.log(sqlQuery);
-  
-  con.query(sqlQuery, (err, results) => {
-    if (err) {
-      throw err;
+    for (const key in fields) {
+      console.log(key, " : ", fields[key][0]);
     }
-    
- 	console.log("data updated");
-    res.json({message:"Data Updated successfully"});
-  });
-  
 
+    const sqlTemplate = 'UPDATE test SET ? where ?';
+    const sqlQuery = mysql.format(sqlTemplate, [{ password: fields["password"][0] }, { email: fields["email"][0] }]);
+
+
+    console.log(sqlQuery);
+
+    con.query(sqlQuery, (err, results) => {
       if (err) {
-        return res.status(500).json({ error: err.message });
+        throw err;
       }
-  
-      });
-    });
-  
 
-app.post('/api/saveCCredentials',(req,res)=>{
+      console.log("data updated");
+      res.json({ message: "Data Updated successfully" });
+    });
+
+
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+  });
+});
+
+
+app.post('/api/saveCCredentials', (req, res) => {
   //const { email,password } = req.body;
   //const { dataToSave } = req.body;
-console.log("HELLOOOOO SAVECREDENTIALSSSS");
- //res.json({ message: "Hello from SaveCredentials." }); 
+  console.log("HELLOOOOO SAVECREDENTIALSSSS");
+  //res.json({ message: "Hello from SaveCredentials." }); 
   const userId = 123;
   const username = 'john_doe';
   console.log(req.body);
@@ -298,9 +298,9 @@ console.log("HELLOOOOO SAVECREDENTIALSSSS");
   var arr = req.body;
   console.log(arr.email);
   console.log(arr.password);
-  var dataToSave={}
+  var dataToSave = {}
   dataToSave["email"] = arr.email;
-  dataToSave["password"]=arr.password;
+  dataToSave["password"] = arr.password;
   //console.log(dataToSave);
   //console.log("Email : "+email);
   //console.log("Passwd : "+password);
@@ -311,13 +311,13 @@ console.log("HELLOOOOO SAVECREDENTIALSSSS");
   const sqlQuery = mysql.format(sqlTemplate, dataToSave);
 
   console.log(sqlQuery);
-  
+
   /*con.query(sqlQuery, (err, results) => {
     if (err) {
       throw err;
     }
     
- 	console.log("data updated");
+    console.log("data updated");
     res.json({message:"Data Updated successfully"});
   });
   */
@@ -333,15 +333,16 @@ app.post('/api/login', (req, res) => {
   console.log(email);
   console.log(password);
 
-  con.query("SELECT * FROM user_credentials where email='"+email+"'", function (err, result, fields) {
+  con.query("SELECT * FROM user_credentials where email='" + email + "'", function (err, result, fields) {
     if (err) {
-        alert("Errorrrr....");
-throw err;
-}
+      alert("Errorrrr....");
+      throw err;
+    }
+    //console.log(result[0].password)
     console.log(result[0].passwd);
     if(password===result[0].passwd)
-        res.json({message:"Congratulations Login Successfull"});
-    
+       res.json({message:"Congratulations Login Successfull"});
+
   });
 });
 
@@ -355,15 +356,15 @@ app.post('/api/loginn', (req, res) => {
   console.log(email);
   console.log(password);
 
-  con.query("SELECT * FROM user_credentials where email='"+email+"'", function (err, result, fields) {
+  con.query("SELECT * FROM user_credentials where email='" + email + "'", function (err, result, fields) {
     if (err) {
-        alert("Errorrrr....");
-throw err;
-}
+      alert("Errorrrr....");
+      throw err;
+    }
     console.log(result[0].passwd);
-    if(password===result[0].passwd)
-        res.json({message:"Congratulations Login Successfull"});
-    
+    if (password === result[0].passwd)
+      res.json({ message: "Congratulations Login Successfull" });
+
   });
 });
 
@@ -380,8 +381,8 @@ con.connect(function(err) {
 });
 
 });*/
- 
-   
+
+
 
 //const PORT = process.env.PORT || 3000;
 const PORT = 3001;

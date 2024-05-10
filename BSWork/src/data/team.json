@@ -1,0 +1,21 @@
+[
+    {
+        "img" : "ravi.jpeg",
+        "role": "CEO / Architect",
+        "name": "Ravi Sehgal",
+        "emojiName":"White Heart"
+    },
+    {
+        "img" : "aryan.jpeg",
+        "role": "Video Editor",
+        "name": "Aryan Sehgal",
+        "emojiName":"Red Heart"
+
+    },
+    {
+        "img" : "raman.jpeg",
+        "role": "Programmer",
+        "name": "Raman Sehgal",
+        "emojiName":"Yellow Heart"
+    }
+]

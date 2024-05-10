@@ -49,10 +49,13 @@ const Navbar = ({ setActiveComponent }) => {
 		},{
 		 label:"Upload",
 		 handler:"Upload"
-		},,{
+		},{
 			label:"Change Password",
 			handler:"Change Password"
-		   },
+		   },{
+			label:"Team",
+			handler:"Team"
+		   }
 
 
 

@@ -1,0 +1,12 @@
+.bold-heading {
+    font-weight: bold;
+}
+
+.uppercase{
+    text-transform: uppercase;
+}
+
+.rowColor {
+    background-color: yellow; /* Change to the desired background color */
+    
+}

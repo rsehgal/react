@@ -1,0 +1,27 @@
+.slider-container {
+    max-width: auto; /* Adjust the width as needed */
+    margin: 50px; /* Center the container */
+  }
+  /*
+  .slide {
+    background-color: rgb(128, 26, 0);
+    padding: 60px;
+    text-align: center;
+    color: white;
+    margin: 0 10px;
+    padding: 0 0px;
+  }
+  */
+  .slide{
+    background-color: rgb(36, 128, 0);
+    text-align: center;
+    color:beige;
+    margin: 0 10px;
+    padding: 0 10px;
+  }
+  .slick-list {margin: 0 -5px;}
+  .slick-slide>div {
+    padding: 10px;
+    margin: 10px;
+    
+   }

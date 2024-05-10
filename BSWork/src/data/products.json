@@ -1,0 +1,20 @@
+{
+    "routes": [
+      { "path": "/home", "label": "Home" },
+      { "path": "/contact", "label": "Contact" },
+      { "path": "/webdesign", "label": "WebDesign" },
+      { "path": "/intdesign", "label": "InteriorDesign" },
+      { "path": "/jewdesign", "label": "JewelleryDesign" }
+    ],
+    "dropdown": {
+      "title": "Dropdown",
+      "items": [
+        { "path": "/jewdesign", "label": "JewelleryDesign" },
+        { "path": "/intdesign", "label": "InteriorDesign" },
+        { "path": "/webdesign", "label": "WebDesign" },
+        { "path": "/videoediting", "label": "Video Editing" }
+        
+      ]
+    }
+  }
+  
