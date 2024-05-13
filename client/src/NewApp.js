@@ -55,8 +55,8 @@ function NewApp() {
 	return <Upload/>
   case 'Change Password':
 	return <ChangePasswd/>
-  case 'Team':
-    return <Team />
+  //case 'Team':
+    //return <Team />
 
 	
       default:

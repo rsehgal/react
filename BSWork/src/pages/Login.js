@@ -32,7 +32,7 @@ const serverUrl='/api/login';
 return (
   <>
 
-<GeneralForm formFields={formFields} serverUrl={serverUrl}>Login Form</GeneralForm>
+<GeneralForm formType="Login" formFields={formFields} serverUrl={serverUrl}>Login Form</GeneralForm>
 
 <div className='text-center'>
 <button type="button" className="btn btn-warning" onClick={handleForgotButton} 

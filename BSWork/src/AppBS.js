@@ -12,11 +12,15 @@ import BS_Card_Carousel from "./bscomponents/BS_Card_Carousel";
 import teamJsonData from "./data/team.json";
 import Login from "./pages/Login";
 import Footer from "./components/Footer";
+import { AuthProvider } from "./components/AuthContext";
+import Welcome from "./components/Welcome";
 
 
 function AppBS() {
   return (
     <>
+    <AuthProvider>
+      <Welcome />
     <Login />
    <BS_Table jsonData={tableJsonData} bordered variant="dark" hover heading_color="rowColor"/>
    <BS_Navbar />
@@ -32,6 +36,7 @@ function AppBS() {
     <Card_Carousel jsonData={cardsJsonData}/>
     <BS_Carousel  jsonData={jsonData} showCaption/>
     <Footer />
+    </AuthProvider>
     
     </>
   );

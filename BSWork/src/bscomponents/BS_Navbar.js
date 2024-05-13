@@ -17,12 +17,15 @@ import VideoEditing from '../pages/videoediting';
 import HorizontalDiv from '../components/horizontaldiv';
 import TableData from '../components/TableData';
 import Login from '../pages/Login';
+import Logout from '../pages/Logout';
 import ChangePasswd from '../pages/ChangePasswd';
 import "../css/gradient.css";
+import { useAuth } from '../components/AuthContext';
 
-function App() {
+function BS_Navbar() {
 
     const {routes,dropdown} = data;
+    const {isAuthenticated,login,logout,username,SetUName,initialState} = useAuth();
 
   return (
     <Router>
@@ -36,7 +39,13 @@ function App() {
               <Nav.Link as={Link} to="/home">Home</Nav.Link>
               </Nav.Item>
               <Nav.Link as={Link} to="/about">About</Nav.Link>
-              <Nav.Link as={Link} to="/login">Login</Nav.Link>
+              {
+                initialState ? (<Nav.Link as={Link} to="/login">Login</Nav.Link>) :
+                (
+              isAuthenticated ? <Nav.Link as={Link} to="/logout">Logout</Nav.Link>
+                              : <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                )
+              }
               <Nav.Link as={Link} to="/changepassword">Change Password</Nav.Link>
               <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
               <BS_NavDropDown title="Our Products"/>
@@ -67,6 +76,7 @@ function App() {
           <Route path="/webdesign" element={<WebDesign />} />
           <Route path="/videoediting" element={<VideoEditing />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/changepassword" element={<ChangePasswd />} />
           <Route path="/orgComm" element={<TableData url='/api/data/OrgComm'/>} />
           <Route path="/advComm" element={<TableData url='/api/data/AdvComm' variant="light"/>} />
@@ -94,4 +104,4 @@ function App() {
   );
 }
 
-export default App;
+export default BS_Navbar;

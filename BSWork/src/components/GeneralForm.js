@@ -3,7 +3,10 @@ import React, { useState } from 'react';
 import Input from './Input';
 import Label from './Label';
 import axios from 'axios';
+import { useAuth } from './AuthContext';
 const GeneralForm = (props) => {
+
+  const { isAuthenticated, login, logout, username, SetUName } = useAuth();
 
   const { formFields, serverUrl = '/home',
     encType = 'application/x-www-form-urlencoded',
@@ -41,6 +44,9 @@ const GeneralForm = (props) => {
   };
 
   const handleSubmit = async (e) => {
+   
+
+    
     var dataToSubmit = formData;
 
     e.preventDefault();
@@ -74,6 +80,10 @@ const GeneralForm = (props) => {
       //const response = await axios.post(serverUrl, stringifyData);
       console.log('Login successful', response.data);
       // You can redirect the user to another page upon successful login.
+      if (props.formType === "Login") {
+        login();
+        SetUName("Raman Sehgal");
+      }
     } catch (error) {
       //alert("Catch : "+serverUrl);
       console.error('Login failed', error);
