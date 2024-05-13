@@ -4,6 +4,8 @@ import Input from './Input';
 import Label from './Label';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
+import Cookies from 'js-cookie';
+
 const GeneralForm = (props) => {
 
   const { isAuthenticated, login, logout, username, SetUName } = useAuth();
@@ -82,6 +84,10 @@ const GeneralForm = (props) => {
       // You can redirect the user to another page upon successful login.
       if (props.formType === "Login") {
         login();
+        const tokenString = {name:"Aryan Sehgal"};//'exampleToken';
+        const token = JSON.stringify(tokenString);
+        console.log(token);
+        Cookies.set('authToken', token, { expires: 7 }); // Set cookie with expiry
         SetUName("Raman Sehgal");
       }
     } catch (error) {
