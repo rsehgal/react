@@ -21,6 +21,7 @@ import Logout from '../pages/Logout';
 import ChangePasswd from '../pages/ChangePasswd';
 import "../css/gradient.css";
 import { useAuth } from '../components/AuthContext';
+import Signup from '../pages/Signup';
 
 function BS_Navbar() {
 
@@ -39,6 +40,7 @@ function BS_Navbar() {
               <Nav.Link as={Link} to="/home">Home</Nav.Link>
               </Nav.Item>
               <Nav.Link as={Link} to="/about">About</Nav.Link>
+              <Nav.Link as={Link} to="/signup">Signup</Nav.Link>
               {
                 initialState ? (<Nav.Link as={Link} to="/login">Login</Nav.Link>) :
                 (
@@ -81,6 +83,7 @@ function BS_Navbar() {
           <Route path="/orgComm" element={<TableData url='/api/data/OrgComm'/>} />
           <Route path="/advComm" element={<TableData url='/api/data/AdvComm' variant="light"/>} />
           <Route path="/invited" element={<TableData url='/api/data/invited'/>} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
        
 }
