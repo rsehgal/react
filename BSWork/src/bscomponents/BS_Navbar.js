@@ -22,6 +22,8 @@ import ChangePasswd from '../pages/ChangePasswd';
 import "../css/gradient.css";
 import { useAuth } from '../components/AuthContext';
 import Signup from '../pages/Signup';
+import PDFDocument from '../components/PDFDocument';
+import { PDF } from '../components/PDFDocument';
 
 function BS_Navbar() {
 
@@ -55,6 +57,7 @@ function BS_Navbar() {
               <Nav.Link as={Link} to="/orgComm" >Organizing Committee</Nav.Link>
               <Nav.Link as={Link} to="/advComm" >Advisory Committee</Nav.Link>
               <Nav.Link as={Link} to="/invited" >Invited Speakers</Nav.Link>
+              <Nav.Link as={Link} to="/download" >Download</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -84,6 +87,7 @@ function BS_Navbar() {
           <Route path="/advComm" element={<TableData url='/api/data/AdvComm' variant="light"/>} />
           <Route path="/invited" element={<TableData url='/api/data/invited'/>} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/download" element={<PDF/>} />
         </Routes>
        
 }
