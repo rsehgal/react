@@ -52,7 +52,7 @@ const PDFDocument = () => (
 
 export const PDF = () =>(
     <PDFViewer width="100%" height="800px">
-    <CertificateTemplate conferenceName="DAE Symposium on Nuclear Physics" leftLogo={logo} rightLogo={logo}/>
+    <CertificateTemplate conferenceName="DAE Symposium on Nuclear Physics" leftLogo={logo} rightLogo={logo} convenerSignature={logo} secretarySignature={logo}/>
   </PDFViewer>
 );
 //export default PDFDocument;

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet, Font, Image } from '@react-pdf/renderer';
 import CertificateHeader from './certificateHeader';
+import CertificateFooter from './certificateFooter';
 
 // Optionally register custom fonts
 // Font.register({ family: 'CustomFont', src: 'path/to/font.ttf' });
@@ -35,15 +36,18 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
-  signature: {
-    marginVertical: 10,
-    fontSize: 12,
-    textAlign: 'right',
+  signatureContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 50,
+  },
+  signature: {
+    fontSize: 12,
+    color: 'gray',
   },
 });
 
-const CertificateTemplate = ({ name, event, date, signature, logo, conferenceName , leftLogo,rightLogo}) => (
+const CertificateTemplate = ({ name, event, date, signature, logo, conferenceName , leftLogo,rightLogo, convenerSignature, secretarySignature}) => (
   <Document>
     <Page size="A4" style={styles.page}>
     <CertificateHeader leftLogo={leftLogo} rightLogo={rightLogo} conferenceName={conferenceName} />  
@@ -55,7 +59,7 @@ const CertificateTemplate = ({ name, event, date, signature, logo, conferenceNam
       <Text style={styles.body}>on</Text>
       <Text style={styles.title}>{date}</Text>
       {logo && <Image style={styles.image} src={logo} />}
-      <Text style={styles.signature}>{signature}</Text>
+      <CertificateFooter convenerSignature={convenerSignature} secretarySignature={secretarySignature} />
     </Page>
   </Document>
 );
