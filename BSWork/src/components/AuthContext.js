@@ -19,7 +19,7 @@ export const AuthProvider = (props) => {
             const parsedToken = JSON.parse(token);
           setIsAuthenticated(true);
           setInitialState(false);
-          setUserName(parsedToken.name);
+          setUserName(parsedToken.uname);
         }
       }, []);
 

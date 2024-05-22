@@ -5,6 +5,9 @@ import { PDFViewer } from '@react-pdf/renderer';
 import PDFText from '../pdf/pdfText';
 import CertificateTemplate from '../pdf/certificateTemplate';
 import logo from "../logo.png";
+import certificateJsonData from "../data/certificate.json";
+import { useAuth } from './AuthContext';
+import { GetUserData } from '../core/fetchData';
 
 const styles = StyleSheet.create({
   page: {
@@ -50,9 +53,31 @@ const PDFDocument = () => (
 );
 */
 
-export const PDF = () =>(
+export const PDF = (props) =>{
+
+  const { isAuthenticated, login, logout, username, SetUName } = useAuth();
+  //alert(isAuthenticated);
+  //alert(username);
+
+  const userData = GetUserData(props,username);
+  //console.log(userData[0].title);
+
+    const content = "This is to certify that Raman Sehgal has participated in "+certificateJsonData[0].conferenceName
+                    +", Organized by "+ certificateJsonData[0].organizer
+                    +", Sponsored by "+ certificateJsonData[0].sponsor
+                    +" at "+
+    certificateJsonData[0].venue+".";
+    return (
     <PDFViewer width="100%" height="800px">
-    <CertificateTemplate conferenceName="DAE Symposium on Nuclear Physics" leftLogo={logo} rightLogo={logo} convenerSignature={logo} secretarySignature={logo}/>
+    <CertificateTemplate conferenceName={certificateJsonData[0].conferenceName}
+                         leftLogo={logo} 
+                         rightLogo={logo} 
+                         convenerSignature={logo} 
+                         secretarySignature={logo}
+                         content={content}
+                         certificate
+                         />
   </PDFViewer>
-);
+    );
+}
 //export default PDFDocument;

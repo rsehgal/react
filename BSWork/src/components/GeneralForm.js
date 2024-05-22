@@ -84,11 +84,11 @@ const GeneralForm = (props) => {
       // You can redirect the user to another page upon successful login.
       if (props.formType === "Login") {
         login();
-        const tokenString = {name:"Aryan Sehgal"};//'exampleToken';
+        const tokenString = response.data;//{name:"rsehgal"};//'exampleToken';
         const token = JSON.stringify(tokenString);
         console.log(token);
         Cookies.set('authToken', token, { expires: 7 }); // Set cookie with expiry
-        SetUName("Raman Sehgal");
+        SetUName(response.data.uname);
       }
     } catch (error) {
       //alert("Catch : "+serverUrl);

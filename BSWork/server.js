@@ -96,6 +96,19 @@ app.get('/api/data/OrgComm', (req, res) => {
   });
 });
 
+app.get('/api/data/Download', (req, res) => {
+  const { username } = 'rsehgal';
+  console.log("RAAMMAANN : "+req.body);
+  const query = 'SELECT title,status from contributions where uname = ?';// where uname=; // Replace with your table name
+  con.query(query, [username],(err,  results) => {
+    if (err) {
+      throw err;
+    }
+    res.json(results);
+    //console.log(res);
+  });
+});
+
 app.get('/api/data/invited', (req, res) => {
   console.log(req.body);
   const query = 'SELECT name,affiliation FROM invited'; // Replace with your table name
@@ -347,13 +360,15 @@ app.post('/api/login', (req, res) => {
 
   con.query("SELECT * FROM user_credentials where email='" + email + "'", function (err, result, fields) {
     if (err) {
-      alert("Errorrrr....");
+      alert("Errorrrr...."); 
       throw err;
     }
     //console.log(result[0].password)
     console.log(result[0].passwd);
     if(password===result[0].passwd)
-       res.json({message:"Congratulations Login Successfull"});
+       res.json({message:"Congratulations Login Successfull",
+      email:email,
+    uname:result[0].uname});
 
   });
 });
