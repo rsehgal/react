@@ -4,6 +4,7 @@ import { FetchData } from '../core/fetchData';
 import tableJsonData from '../data/table.json';
 //import { fetcherConfigParameter } from '../core/fetchData';
 import { FetchAxiosData } from '../core/fetchData';
+import { useFetchAxiosData } from '../core/fetchData';
 
 function TableData(props) {
 
@@ -16,13 +17,14 @@ function TableData(props) {
     ** JSON parse,and will handle that implicitly.
     */
     //var dataC = FetchData(props); // Also working
-    var dataC = FetchAxiosData(props);
+    //var dataC = FetchAxiosData(props);
+    const { data, loading, error } = useFetchAxiosData(props);
     
-    console.log("RAMANNN : ",dataC);
+    console.log("RAMANNN : ",data);
  
     return (
         <>
-        <BS_Table jsonData={dataC} bordered variant={variant} hover heading_color="rowColor" />
+        <BS_Table jsonData={data} bordered variant={variant} hover heading_color="rowColor" />
         {
             // example to display data from json read from a file
             //<BS_Table jsonData={tableJsonData} bordered variant="light" hover heading_color="rowColor"/>

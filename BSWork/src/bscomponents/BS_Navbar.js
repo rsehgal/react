@@ -83,11 +83,11 @@ function BS_Navbar() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/changepassword" element={<ChangePasswd />} />
-          <Route path="/orgComm" element={<TableData url='http://localhost:3001/api/data/OrgComm'/>} />
+          <Route path="/orgComm" element={<TableData url='/api/data/OrgComm'/>} />
           <Route path="/advComm" element={<TableData url='/api/data/AdvComm' variant="light"/>} />
           <Route path="/invited" element={<TableData url='/api/data/invited'/>} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/download" element={<PDF url='/api/data/Download'/>} />
+          <Route path="/download" element={<PDF url='/api/data/UserDetails'/>} />
         </Routes>
        
 }

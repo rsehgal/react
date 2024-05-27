@@ -98,11 +98,27 @@ app.post('/api/data/OrgComm', (req, res) => {
   });
 });
 
+app.post('/api/data/UserDetails', (req, res) => {
+  const { username } = req.body;
+  const query = 'SELECT firstname,lastname FROM user_credentials where uname ="'+username+'"'; // Replace with your table name
+  console.log(query);
+  //const {username} = req.body;
+  con.query(query,(err, results) => {
+    if (err) {
+      throw err;
+    }
+    console.log(results);
+    res.json(results);
+  });
+});
+
+
+
 app.post('/api/data/Download', (req, res) => { 
   const { username } = 'rsehgal';
   console.log("RAAMMAANN : "+req.body);
-  const query = 'SELECT title,status from contributions where uname = ?';// where uname=; // Replace with your table name
-  con.query(query, [username],(err,  results) => {
+  const query = 'SELECT title,status from contributions';// where uname = ?';// where uname=; // Replace with your table name
+  con.query(query, ['username'],(err,  results) => {
     if (err) {
       throw err;
     }
