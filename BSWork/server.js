@@ -86,17 +86,19 @@ app.post('/api/data/ProceedingsC', (req, res) => {
 });
 
 
-app.get('/api/data/OrgComm', (req, res) => {
+app.post('/api/data/OrgComm', (req, res) => {
   const query = 'SELECT name,affiliation FROM OrgComm'; // Replace with your table name
+  console.log(query);
   con.query(query, (err, results) => {
     if (err) {
       throw err;
     }
+    //console.log(results);
     res.json(results);
   });
 });
 
-app.get('/api/data/Download', (req, res) => {
+app.post('/api/data/Download', (req, res) => { 
   const { username } = 'rsehgal';
   console.log("RAAMMAANN : "+req.body);
   const query = 'SELECT title,status from contributions where uname = ?';// where uname=; // Replace with your table name
@@ -109,7 +111,7 @@ app.get('/api/data/Download', (req, res) => {
   });
 });
 
-app.get('/api/data/invited', (req, res) => {
+app.post('/api/data/invited', (req, res) => {
   console.log(req.body);
   const query = 'SELECT name,affiliation FROM invited'; // Replace with your table name
   con.query(query, (err, results) => {
@@ -121,9 +123,11 @@ app.get('/api/data/invited', (req, res) => {
 });
 
 
-app.get('/api/data/AdvComm', (req, res) => {
+app.post('/api/data/AdvComm', (req, res) => {
   const query = 'SELECT name,affiliation FROM AdvComm'; // Replace with your table name
   console.log(query);
+  const {username} = req.body;
+  console.log(username);
   con.query(query, (err, results) => {
     if (err) {
       throw err;

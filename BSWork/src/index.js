@@ -5,11 +5,12 @@ import App2 from './App2';
 import AppBS from './AppBS';
 //import AppBS from './AppBS';
 import reportWebVitals from './reportWebVitals';
+import AppPdfLatex from './AppPdfLatex';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AppBS />
+   <AppBS />
   </React.StrictMode>
 );
 

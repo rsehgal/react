@@ -7,7 +7,7 @@ import CertificateTemplate from '../pdf/certificateTemplate';
 import logo from "../logo.png";
 import certificateJsonData from "../data/certificate.json";
 import { useAuth } from './AuthContext';
-import { GetUserData } from '../core/fetchData';
+//import { GetUserData } from '../core/fetchData';
 
 const styles = StyleSheet.create({
   page: {
@@ -59,7 +59,7 @@ export const PDF = (props) =>{
   //alert(isAuthenticated);
   //alert(username);
 
-  const userData = GetUserData(props,username);
+  //const userData = GetUserData(props,username);
   //console.log(userData[0].title);
 
     const content = "This is to certify that Raman Sehgal has participated in "+certificateJsonData[0].conferenceName
