@@ -35,6 +35,16 @@ con.connect((err) => {
   }
   console.log('Connected to MySQL');
 });
+
+function ProcessQuery(res,query){
+  con.query(query, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    //console.log(results);
+    res.json(results);
+  });
+}
 //app.use(bodyParser(){limit:5000kb})
 //http.globalAgent.maxHeaderCount = 12800000; // Set your desired limit
 //http.globalAgent.maxHeaderSize = 16384000;
@@ -89,68 +99,58 @@ app.post('/api/data/ProceedingsC', (req, res) => {
 app.post('/api/data/OrgComm', (req, res) => {
   const query = 'SELECT name,affiliation FROM OrgComm'; // Replace with your table name
   console.log(query);
-  con.query(query, (err, results) => {
+  ProcessQuery(res,query);
+  /*
+  ** Below code is taken to ProcessQuery function
+  ** This will make the endpoint definition small
+  ** and avoid redundant code.
+  **
+  ** Kept it here for reference
+  */
+  /*con.query(query, (err, results) => {
     if (err) {
       throw err;
     }
     //console.log(results);
     res.json(results);
   });
+  */
 });
 
 app.post('/api/data/UserDetails', (req, res) => {
   const { username } = req.body;
   const query = 'SELECT firstname,lastname FROM user_credentials where uname ="'+username+'"'; // Replace with your table name
   console.log(query);
-  //const {username} = req.body;
-  con.query(query,(err, results) => {
-    if (err) {
-      throw err;
-    }
-    console.log(results);
-    res.json(results);
-  });
+  ProcessQuery(res,query);
 });
 
-
+app.post('/api/data/PaperDetails', (req, res) => {
+  const { username } = req.body;
+  const query = 'SELECT user_credentials.firstname as firstname,user_credentials.lastname as lastname, contributions.status as status, contributions.title as title from user_credentials join contributions on contributions.uname=user_credentials.uname where user_credentials.uname ="'+username+'"'; 
+  console.log(query);
+  ProcessQuery(res,query);
+  
+});
 
 app.post('/api/data/Download', (req, res) => { 
   const { username } = 'rsehgal';
   console.log("RAAMMAANN : "+req.body);
   const query = 'SELECT title,status from contributions';// where uname = ?';// where uname=; // Replace with your table name
-  con.query(query, ['username'],(err,  results) => {
-    if (err) {
-      throw err;
-    }
-    res.json(results);
-    //console.log(res);
-  });
+  ProcessQuery(res,query);
 });
 
 app.post('/api/data/invited', (req, res) => {
   console.log(req.body);
   const query = 'SELECT name,affiliation FROM invited'; // Replace with your table name
-  con.query(query, (err, results) => {
-    if (err) {
-      throw err;
-    }
-    res.json(results);
-  });
+  ProcessQuery(res,query);
 });
-
 
 app.post('/api/data/AdvComm', (req, res) => {
   const query = 'SELECT name,affiliation FROM AdvComm'; // Replace with your table name
   console.log(query);
-  const {username} = req.body;
-  console.log(username);
-  con.query(query, (err, results) => {
-    if (err) {
-      throw err;
-    }
-    res.json(results);
-  });
+  ProcessQuery(res,query);
 });
+
 app.post('/api/saveCredentialsss', (req, res) => {
   const query = 'SELECT name,affiliation FROM AdvComm'; // Replace with your table name
   console.log(query);

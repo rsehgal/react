@@ -87,7 +87,7 @@ function BS_Navbar() {
           <Route path="/advComm" element={<TableData url='/api/data/AdvComm' variant="light"/>} />
           <Route path="/invited" element={<TableData url='/api/data/invited'/>} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/download" element={<PDF url='/api/data/UserDetails'/>} />
+          <Route path="/download" element={<PDF url='/api/data/PaperDetails'/>} />
         </Routes>
        
 }

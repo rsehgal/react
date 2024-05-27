@@ -63,17 +63,20 @@ export const PDF = (props) => {
   const { data, loading, error } = useFetchAxiosData(props);
   console.log("Data: ", data);
   console.log("Error: ", error);
+  var dataUser = data;
 
   // Handle loading and error states
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h1>Error: {error.message}</h1>;
   if (!data || data.length === 0) return <h1>No data available</h1>;
 
-  const content = "This is to certify that " + data[0].firstname + " " + data[0].lastname +
+  const name=dataUser[0].firstname + " " + dataUser[0].lastname;
+  const content = "This is to certify that " + name +
     " has participated in " + certificateJsonData[0].conferenceName +
     ", Organized by " + certificateJsonData[0].organizer +
     ", Sponsored by " + certificateJsonData[0].sponsor +
-    " at " + certificateJsonData[0].venue + ".";
+    " at " + certificateJsonData[0].venue + ". "+name+" has also made "+
+    dataUser[0].status+" presentation for the contributions titled "+dataUser[0].title+".";
 
 
   return (
