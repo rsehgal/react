@@ -133,9 +133,20 @@ app.post('/api/data/PaperDetails', (req, res) => {
 });
 
 app.post('/api/data/Search', (req, res) => {
-  const { firstname,lastname } = req.body;
-  const query = 'SELECT * from user_credentials where lastname like "%'
+  const { firstname,lastname,startdate,enddate } = req.body;
+  var query ='';
+  if(startdate==="" && enddate==="")
+  query = 'SELECT * from user_credentials where lastname like "%'
   +lastname+'%" and firstname like "%'+firstname+'%"'; 
+  else if(startdate==="" && enddate!="")
+   query = 'SELECT * from user_credentials where lastname like "%'
+  +lastname+'%" and firstname like "%'+firstname+'%" and creation_date <="'+enddate+'"'; 
+  else if(startdate!="" && enddate==="")
+  query = 'SELECT * from user_credentials where lastname like "%'
+  +lastname+'%" and firstname like "%'+firstname+'%" and creation_date >="'+startdate+'"'; 
+  else if(startdate!="" && enddate!="")
+  query = 'SELECT * from user_credentials where lastname like "%'
+  +lastname+'%" and firstname like "%'+firstname+'%" and creation_date >="'+startdate+'" and creation_date <="'+enddate+'"';  
   console.log(query);
   ProcessQuery(res,query);
   

@@ -7,6 +7,8 @@ import TableData_V2 from "./TableData_V2";
 const Search = (props) => {
     const [firstname, setFirstname]=useState('');
     const [lastname, setLastname]=useState('');
+    const [startdate, setStartDate]=useState('');
+    const [enddate, setEndDate]=useState('');
     
     const handleFirstNameChange = (e) =>{
         setFirstname(e.target.value);
@@ -14,10 +16,20 @@ const Search = (props) => {
     const handleLastNameChange = (e) =>{
       setLastname(e.target.value);
   }
+  const handleStartDateChange = (e) =>{
+    //if(e.key ==="Enter")
+      setStartDate(e.target.value);
+}
+const handleEndDateChange = (e) =>{
+  //if(e.key ==="Enter")
+    setEndDate(e.target.value);
+}
 
     const queryData = {
       firstname: firstname,
-      lastname : lastname
+      lastname : lastname,
+      startdate : startdate,
+      enddate:enddate
   };
 
   return (
@@ -25,8 +37,10 @@ const Search = (props) => {
         <Label>Name</Label>
         <input type="text" id="firstname" name="firstname" onChange={ handleFirstNameChange } />
         <input type="text" id="lastname" name="lastname" onChange={ handleLastNameChange } />
+        <input type="date" id="startdate" name="startdate" onChange={ handleStartDateChange } />
+        <input type="date" id="enddate" name="enddate" onChange={ handleEndDateChange } />
         {
-        (firstname || lastname) && <TableData_V2 url='/api/data/Search' queryData={queryData}/>
+        (firstname || lastname || startdate || enddate) && <TableData_V2 url='/api/data/Search' queryData={queryData}/>
         }
     </div>
   )
