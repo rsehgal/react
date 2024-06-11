@@ -5,6 +5,14 @@ import TableData from "./TableData";
 import TableData_V2 from "./TableData_V2";
 
 const Search = (props) => {
+    /*
+    ** For each search criteria add following
+    **
+    ** State
+    ** Handler
+    ** Input box
+    ** Modify the search end point in server.js
+    */
     const [firstname, setFirstname]=useState('');
     const [lastname, setLastname]=useState('');
     const [startdate, setStartDate]=useState('');
