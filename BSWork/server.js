@@ -132,6 +132,14 @@ app.post('/api/data/PaperDetails', (req, res) => {
   
 });
 
+app.post('/api/data/Search', (req, res) => {
+  const { firstname } = req.body;
+  const query = 'SELECT * from user_credentials where firstname like "%'+firstname+'%"'; 
+  console.log(query);
+  ProcessQuery(res,query);
+  
+});
+
 app.post('/api/data/Download', (req, res) => { 
   const { username } = 'rsehgal';
   console.log("RAAMMAANN : "+req.body);

@@ -98,3 +98,35 @@ export function useFetchAxiosData(props) {
 
   return { data, loading, error };
 }
+
+
+export function useFetchAxiosData_V2(props,queryData) {
+  //const { username } = useAuth(); // Destructure only what's necessary from useAuth
+  
+ // console.log("username from UseFetchAxiosData : ",username);
+
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+   
+    async function fetchMyAPI() {
+      console.log("From inside of UseEffect In UseFetchAxiosData");
+      try {
+        const response = await axios.post(props.url, queryData);
+        setData(response.data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (props.url) {
+      fetchMyAPI();
+    }
+  }, [props.url,queryData]); // Add username as a dependency
+
+  return { data, loading, error };
+}

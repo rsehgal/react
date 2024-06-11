@@ -11,6 +11,7 @@ import { useAuth } from './AuthContext';
 import { FetchAxiosData } from '../core/fetchData';
 import { useState } from 'react';
 import { useFetchAxiosData } from '../core/fetchData';
+import { useFetchAxiosData_V2 } from '../core/fetchData';
 
 const styles = StyleSheet.create({
   page: {
@@ -57,10 +58,15 @@ const PDFDocument = () => (
 */
 export const PDF = (props) => {
   const { isAuthenticated, login, logout, username, SetUName } = useAuth();
+  const queryData = {
+    username: username
+  };
+  
+  //newProps.queryData = queryData;
 
   console.log("From PDF: ", props.url);
 
-  const { data, loading, error } = useFetchAxiosData(props);
+  const { data, loading, error } = useFetchAxiosData_V2(props,queryData);
   console.log("Data: ", data);
   console.log("Error: ", error);
   var dataUser = data;

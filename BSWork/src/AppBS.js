@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import Footer from "./components/Footer";
 import { AuthProvider } from "./components/AuthContext";
 import Welcome from "./components/Welcome";
+import Search from "./components/search";
 
 
 function AppBS() {
@@ -21,6 +22,7 @@ function AppBS() {
     <>
     <AuthProvider>
       <Welcome />
+<Search />
     <Login />
    <BS_Table jsonData={tableJsonData} bordered variant="dark" hover heading_color="rowColor"/>
    <BS_Navbar />
