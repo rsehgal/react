@@ -5,21 +5,28 @@ import TableData from "./TableData";
 import TableData_V2 from "./TableData_V2";
 
 const Search = (props) => {
-    const [inputValue, setValue]=useState('');
+    const [firstname, setFirstname]=useState('');
+    const [lastname, setLastname]=useState('');
     
-    const handleChange = (e) =>{
-        setValue(e.target.value);
+    const handleFirstNameChange = (e) =>{
+        setFirstname(e.target.value);
     }
+    const handleLastNameChange = (e) =>{
+      setLastname(e.target.value);
+  }
+
     const queryData = {
-      firstname: inputValue
+      firstname: firstname,
+      lastname : lastname
   };
 
   return (
     <div>
         <Label>Name</Label>
-        <input type="text" id="search" name="search" onChange={ handleChange } />
+        <input type="text" id="firstname" name="firstname" onChange={ handleFirstNameChange } />
+        <input type="text" id="lastname" name="lastname" onChange={ handleLastNameChange } />
         {
-        inputValue && <TableData_V2 url='/api/data/Search' queryData={queryData}/>
+        (firstname || lastname) && <TableData_V2 url='/api/data/Search' queryData={queryData}/>
         }
     </div>
   )

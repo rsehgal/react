@@ -133,8 +133,9 @@ app.post('/api/data/PaperDetails', (req, res) => {
 });
 
 app.post('/api/data/Search', (req, res) => {
-  const { firstname } = req.body;
-  const query = 'SELECT * from user_credentials where firstname like "%'+firstname+'%"'; 
+  const { firstname,lastname } = req.body;
+  const query = 'SELECT * from user_credentials where lastname like "%'
+  +lastname+'%" and firstname like "%'+firstname+'%"'; 
   console.log(query);
   ProcessQuery(res,query);
   
