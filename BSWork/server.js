@@ -165,6 +165,23 @@ app.post('/api/data/schema', (req, res) => {
   ProcessQuery(res,query);
 });
 
+app.post('/api/data/schemaTest', (req, res) => { 
+  const  { tablename }  = req.body;
+  //const query = 'desc '+tablename;//user_credentials';// where uname = ?';// where uname=; // Replace with your table name
+  
+  //Lets try to query the table metadata
+  const query = 'SELECT COLUMN_NAME as Field, COLUMN_COMMENT as type FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = "sympnp_sympnp2023" AND TABLE_NAME = "'+tablename+'" order by ORDINAL_POSITION';
+
+  ProcessQuery(res,query);
+});
+
+app.post('/api/data/GetData', (req, res) => {
+  const { tablename, username } = req.body;
+  const query = 'SELECT * FROM '+tablename+' where uname ="'+username+'"'; // Replace with your table name
+  console.log(query);
+  ProcessQuery(res,query);
+});
+
 app.post('/api/data/invited', (req, res) => {
   console.log(req.body);
   const query = 'SELECT name,affiliation FROM invited'; // Replace with your table name

@@ -19,11 +19,29 @@ import FormBuilder from "./components/formbuilder";
 
 
 function AppBS() {
+
+  const initialFormData = {
+    firstname: 'John Doe',
+    email: 'john.doe@example.com'
+    
+  };
+
+  //const { data, loading, error } = useFetchAxiosData_V2(props,queryData);
+
   return (
     <>
     <AuthProvider>
       <Welcome />
-      <FormBuilder tablename='user_credentials' />
+      {
+
+<FormBuilder schemaUrl='/api/data/schemaTest' 
+                   url='/api/data/GetData' 
+                   tablename='user_credentials' 
+      />
+
+
+}
+        
 <Search />
     <Login />
    <BS_Table jsonData={tableJsonData} bordered variant="dark" hover heading_color="rowColor"/>
