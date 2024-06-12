@@ -159,9 +159,9 @@ app.post('/api/data/Download', (req, res) => {
   ProcessQuery(res,query);
 });
 
-app.get('/api/data/schema', (req, res) => { 
-  const { username } = 'rsehgal';
-  const query = 'desc user_credentials';// where uname = ?';// where uname=; // Replace with your table name
+app.post('/api/data/schema', (req, res) => { 
+  const { tablename } = req.body;
+  const query = 'desc '+tablename;//user_credentials';// where uname = ?';// where uname=; // Replace with your table name
   ProcessQuery(res,query);
 });
 
