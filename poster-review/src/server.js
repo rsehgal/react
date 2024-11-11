@@ -22,6 +22,24 @@ con.connect(function(err) {
   console.log("Connected!");
 });
 
+app.get('/api/getReviewerName', (req, res) => {
+  //const { selectedValue } = req.body;
+  const selectedValue  = req.query.refereeName;
+  
+  
+const sqlQuery = 'SELECT refereeName FROM posterReviewerList WHERE uname = ?';
+
+  con.query(sqlQuery, [selectedValue], (err, results) => {
+    if (err) {
+      console.error('Error executing query:', err);
+      return res.status(500).send('Database query failed');
+    }
+
+    // Send the results back as JSON
+    res.json(results);
+});
+});
+
 app.get('/api/update', (req, res) => {
   //const { selectedValue } = req.body;
   const selectedValue  = req.query.refereeName;
@@ -59,7 +77,7 @@ app.get('/api/updateMarks', (req, res) => {
 
 //  const marksInt = parseInt(marks,10);
 
-  const marksInt = parseInt(marks, 10) || 100;
+  const marksInt = parseInt(marks, 10);// || 100;
 
 
   console.log(marksInt);

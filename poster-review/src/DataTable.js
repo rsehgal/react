@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import PosterReview from './PosterReview';
 import { useLocation } from 'react-router-dom';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const DataTable = (props) => {
@@ -10,6 +10,8 @@ const DataTable = (props) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   //const [marks, setMarks] = useState('');
+  const [refereeName,setRefereeName]=useState('');
+  
 
   // Get the query parameter from the URL
   const location = useLocation();
@@ -30,9 +32,28 @@ const DataTable = (props) => {
   };
   */
 
+  const getRowColor = (value) => {
+    if (parseInt(value,10) > 0) return 'table-success'; // Red for low values
+    
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       if (!selectedValue) return;
+
+      setLoading(true); // Start loading
+      try {
+        const response = await fetch(`/api/getReviewerName?refereeName=${encodeURIComponent(selectedValue)}`);
+        const jsonData = await response.json();
+        const refName = jsonData[0].refereeName;
+        console.log(refName);
+        setRefereeName(refName);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false); // Stop loading
+      }
+
 
       setLoading(true); // Start loading
       try {
@@ -51,22 +72,28 @@ const DataTable = (props) => {
   }, [selectedValue,reload]);
   return (
     <div>
-      <h1>Data Table</h1>
-            <table border="1">
-        <thead>
-          <tr>
-            <th>Filename</th>
-            <td>Marks</td>
-            <th>ID</th>
+      <hr/>
+      <h2 className='text-center  text-success'>Welcome : {refereeName}</h2>
+            <table border="1" className='table table-danger table-hover mb-0'>
+        <thead className="thead-dark">
+          <tr className='table-warning'>
+          
+            <th className='col-4 text-center'>Filename</th>
+            <th className='col-4 text-center'>Marks</th>
+            <th className='col-4 text-center'>Select</th>
+            
             {/* Add more headers as needed */}
           </tr>
         </thead>
         <tbody>
           {data.map((item, index) => (
-            <tr key={index}>
-              <td>{item.Filename}</td>
-              <td>{item.marks}</td>
-		          <td><PosterReview paper={item.Filename} refereeName={selectedValue} triggerReload={triggerReload} marks={item.marks}/></td>
+           
+            <tr key={index} className={getRowColor(item.marks)}>
+             
+              <td className='col-4 text-center'>{item.Filename}</td>
+              <td className='col-4 text-center'>{item.marks}</td>
+              <td className='col-4 text-center'><PosterReview paper={item.Filename} refereeName={selectedValue} triggerReload={triggerReload} marks={item.marks}/></td>
+             
               {/* Add more columns as needed */}
             </tr>
           ))}
