@@ -1,0 +1,54 @@
+// DataTable.js
+import React, { useEffect, useState } from 'react';
+import PosterReview from './PosterReview';
+
+
+const DataTable = (props) => {
+  const [data, setData] = useState([]);
+
+const { selectedValue } = props;
+
+
+
+useEffect(() => {
+    const fetchData = async () => {
+      if (!selectedValue) return; // Avoid fetching if selectedValue is empty
+
+      try {
+        const response = await fetch(`/api/update?refereeName=${encodeURIComponent(selectedValue)}`);
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, [selectedValue]);
+
+  return (
+    <div>
+      <h1>Data Table</h1>
+            <table border="1">
+        <thead>
+          <tr>
+            <th>Filename</th>
+            <th>ID</th>
+            {/* Add more headers as needed */}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr key={index}>
+              <td>{item.Filename}</td>
+		<td><PosterReview /></td>
+              {/* Add more columns as needed */}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default DataTable;
+
