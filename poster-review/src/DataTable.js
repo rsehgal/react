@@ -16,8 +16,8 @@ const DataTable = (props) => {
   // Get the query parameter from the URL
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const selectedValue = queryParams.get('selectedValue');
-
+  const selectedValue = queryParams.get('refereeName');
+  //alert(selectedValue);
   const triggerReload = () => {
     //alert("Trigger Reloadedddd..");
     setReload(!reload);  // Toggle state to trigger re-render
@@ -42,8 +42,10 @@ const DataTable = (props) => {
       if (!selectedValue) return;
 
       setLoading(true); // Start loading
+
       try {
-        const response = await fetch(`/api/getReviewerName?refereeName=${encodeURIComponent(selectedValue)}`);
+        //const response = await fetch(`/api/getReviewerName?refereeName=${encodeURIComponent(selectedValue)}`);
+        const response = await fetch(`http://sympnp.org/phpNode/getData.php?refereeName=${encodeURIComponent(selectedValue)}`);
         const jsonData = await response.json();
         const refName = jsonData[0].refereeName;
         console.log(refName);
@@ -57,7 +59,8 @@ const DataTable = (props) => {
 
       setLoading(true); // Start loading
       try {
-        const response = await fetch(`/api/update?refereeName=${encodeURIComponent(selectedValue)}`);
+        //const response = await fetch(`/api/update?refereeName=${encodeURIComponent(selectedValue)}`);
+        const response = await fetch('http://sympnp.org/phpNode/getData.php?refereeName='+selectedValue);
         const jsonData = await response.json();
         console.log(jsonData);
         setData(jsonData);
