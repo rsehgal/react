@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 function PosterReview(props) {
-  const { paper, refereeName,triggerReload } = props; 
+  const { paper, refereeName,triggerReload,disabled } = props; 
   //const [selectedValue, setSelectedValue] = useState('');
   const [marks, setMarks] = useState(props.marks);
 
@@ -33,7 +33,7 @@ function PosterReview(props) {
 
   return (
     <div className="App">
-      <select value={marks} onChange={handleDropdownChange}>
+      <select value={marks} onChange={handleDropdownChange} disabled={disabled}>
         <option value="0">0</option>
         <option value="1">1</option>
         <option value="2">2</option>

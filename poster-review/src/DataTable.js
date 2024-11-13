@@ -11,6 +11,22 @@ const DataTable = (props) => {
   const [loading, setLoading] = useState(false);
   //const [marks, setMarks] = useState('');
   const [refereeName,setRefereeName]=useState('');
+
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    // Cleanup event listeners when the component unmounts
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
   
 
   // Get the query parameter from the URL
@@ -76,6 +92,14 @@ const DataTable = (props) => {
   return (
     <div>
       <hr/>
+      
+      { !isOnline && (
+      <>
+        <h3 className='text-danger'> You are offline</h3>
+        <hr />
+      </>
+    )}
+
       <h2 className='text-center  text-success'>Welcome : {refereeName}</h2>
             <table border="1" className='table table-danger table-hover mb-0'>
         <thead className="thead-dark">
@@ -95,7 +119,7 @@ const DataTable = (props) => {
              
               <td className='col-4 text-center'>{item.Filename}</td>
               <td className='col-4 text-center'>{item.marks}</td>
-              <td className='col-4 text-center'><PosterReview paper={item.Filename} refereeName={selectedValue} triggerReload={triggerReload} marks={item.marks}/></td>
+              <td className='col-4 text-center'><PosterReview paper={item.Filename} refereeName={selectedValue} triggerReload={triggerReload} marks={item.marks} disabled={!isOnline}/></td>
              
               {/* Add more columns as needed */}
             </tr>
@@ -103,7 +127,7 @@ const DataTable = (props) => {
         </tbody>
       </table>
     </div>
-  );
+    );
 };
 
 export default DataTable;
