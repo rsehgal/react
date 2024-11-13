@@ -23,7 +23,7 @@ function PosterReview(props) {
       // Send the selected value to the backend API
       //const response = await axios.get('http://localhost:5000/api/updateMarks', { selectedValue: value });
       //const response = await axios.get(`/api/updateMarks?marks=${selectedMarks}&paper=${paper}&refereeName=${refereeName}`);
-      const response = await axios.get(`http://sympnp.org/phpNode/updateData.php?marks=${selectedMarks}&paper=${paper}&refereeName=${refereeName}`);
+      const response = await axios.get(`https://sympnp.org/phpNode/updateData.php?marks=${selectedMarks}&paper=${paper}&refereeName=${refereeName}`);
       console.log('Database update response:', response.data);
     } catch (error) {
       console.error('Error updating the database:', error);

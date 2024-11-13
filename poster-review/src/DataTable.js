@@ -61,7 +61,7 @@ const DataTable = (props) => {
 
       try {
         //const response = await fetch(`/api/getReviewerName?refereeName=${encodeURIComponent(selectedValue)}`);
-        const response = await fetch(`http://sympnp.org/phpNode/getData.php?refereeName=${encodeURIComponent(selectedValue)}`);
+        const response = await fetch(`https://sympnp.org/phpNode/getData.php?refereeName=${encodeURIComponent(selectedValue)}`);
         const jsonData = await response.json();
         const refName = jsonData[0].refereeName;
         console.log(refName);
@@ -76,7 +76,7 @@ const DataTable = (props) => {
       setLoading(true); // Start loading
       try {
         //const response = await fetch(`/api/update?refereeName=${encodeURIComponent(selectedValue)}`);
-        const response = await fetch('http://sympnp.org/phpNode/getData.php?refereeName='+selectedValue);
+        const response = await fetch('https://sympnp.org/phpNode/getData.php?refereeName='+selectedValue);
         const jsonData = await response.json();
         console.log(jsonData);
         setData(jsonData);
