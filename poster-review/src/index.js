@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import PosterReview from './PosterReview';
 import DataTable from './DataTable';
+import DataTableAdmin from './DataTableAdmin';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,7 +14,7 @@ root.render(
     
     <Router>
       <Routes>
-        <Route path="/" element={<DataTable />} />
+        <Route path="/" element={<DataTableAdmin />} />
       </Routes>
     </Router>
     
