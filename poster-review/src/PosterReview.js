@@ -1,6 +1,8 @@
 // src/App.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import data from './json/data.json';
+import Select from './Select';
 
 function PosterReview(props) {
   const { paper, refereeName,triggerReload,disabled } = props; 
@@ -10,19 +12,10 @@ function PosterReview(props) {
   // Handler for dropdown change
   const handleDropdownChange = async (event) => {
     const selectedMarks = event.target.value;
-    //alert("Dropdown clicked....");
-    //alert("Value : "+value);
-    //setSelectedValue(value);
     setMarks(selectedMarks);
-    //console.log(value);
-    //alert("Selected Value : "+selectedValue);
-
     triggerReload();
 
     try {
-      // Send the selected value to the backend API
-      //const response = await axios.get('http://localhost:5000/api/updateMarks', { selectedValue: value });
-      //const response = await axios.get(`/api/updateMarks?marks=${selectedMarks}&paper=${paper}&refereeName=${refereeName}`);
       const response = await axios.get(`https://sympnp.org/phpNode/updateData.php?marks=${selectedMarks}&paper=${paper}&refereeName=${refereeName}`);
       console.log('Database update response:', response.data);
     } catch (error) {
@@ -33,19 +26,8 @@ function PosterReview(props) {
 
   return (
     <div className="App">
-      <select value={marks} onChange={handleDropdownChange} disabled={disabled}>
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-      </select>
+      <Select options={data.posterReviewersMarks} defaultValue={marks} handleChange={handleDropdownChange} disabled={disabled}/>
+      
     </div>
   );
 }

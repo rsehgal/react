@@ -1,0 +1,7 @@
+.border-box {
+    border: 2px solid black;
+  }
+
+  .red-border-box {
+    border: 2px solid rgb(212, 78, 78);
+  }
