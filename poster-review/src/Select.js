@@ -15,7 +15,7 @@ function Select(props) {
   const handleDropdownChange = async (event) => {
     setSelectedValue(event.target.value);
     handleChange(event);
-    //if(triggerReload)
+    if(triggerReload)
       triggerReload();
 
   };

@@ -13,7 +13,7 @@ function PosterReview(props) {
   const handleDropdownChange = async (event) => {
     const selectedMarks = event.target.value;
     setMarks(selectedMarks);
-    triggerReload();
+    //triggerReload();
 
     try {
       const response = await axios.get(`https://sympnp.org/phpNode/updateData.php?marks=${selectedMarks}&paper=${paper}&refereeName=${refereeName}`);
@@ -26,7 +26,7 @@ function PosterReview(props) {
 
   return (
     <div className="App">
-      <Select options={data.posterReviewersMarks} defaultValue={marks} handleChange={handleDropdownChange} disabled={disabled}/>
+      <Select options={data.posterReviewersMarks} defaultValue={marks} handleChange={handleDropdownChange} triggerReload={triggerReload} disabled={disabled}/>
       
     </div>
   );

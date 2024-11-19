@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import PosterReview from './PosterReview';
 import DataTable from './DataTable';
 import DataTableAdmin from './DataTableAdmin';
+import DataTableAttendance from './DataTableAttendance';
+import DataTableRegSearch from './DataTableRegSearch';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,7 +16,20 @@ root.render(
     
     <Router>
       <Routes>
-        <Route path="/" element={<DataTableAdmin />} />
+        {
+        <Route path="/posterReview" element={<DataTable />} />
+        }
+        {
+        <Route path="/posterAdmin" element={<DataTableAdmin />} />
+        }
+
+        {
+        <Route path="/attendance" element={<DataTableAttendance />} />
+        }
+
+        {
+          <Route path="/regSearch" element={<DataTableRegSearch />} />
+        }
       </Routes>
     </Router>
     
