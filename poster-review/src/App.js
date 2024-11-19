@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-function App() {
+function App(props) {
+  const [data, setData] = useState(null);
+  //const {urll} = props;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(props.urll); // Adjust the URL to match your server
+        setData(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>CORS Request Example</h1>
+      {data ? <p>{data.message}</p> : <p>Loading...</p>}
     </div>
   );
 }
 
 export default App;
+

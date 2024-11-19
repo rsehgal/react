@@ -5,7 +5,6 @@ export default function Input(props){
 const {type="text",id,children,className,value,name,required}=props;
 
 const parentChange = props.handleChange;
-
 const [inputValue, setValue]=useState('');
 
 const handleChange = (e) =>{
