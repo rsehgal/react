@@ -8,7 +8,8 @@ import Select from './Select';
 import Input from './Input';
 import Label from './Label';
 import helpers from './css/helpers.css';
-
+import { Login } from './Login';
+import Logout from './Logout';
 const DataTableAttendance = (props) => {
 
   const disabled=false;
@@ -20,6 +21,14 @@ const DataTableAttendance = (props) => {
   const [searchUser, setSearchUser]=useState('');
 
   const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  const [ isAttendanceLoggedIn, setLoggedIn ] = useState(false);
+  const checkLogin = (value)=>{
+      setLoggedIn(value);
+      localStorage.setItem("isAttendanceLoggedIn", value);
+
+  };
+
 
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
@@ -81,6 +90,11 @@ const DataTableAttendance = (props) => {
         const response = await fetch('https://sympnp.org/phpNode/getAttendanceData.php?uname='+searchUser);
         const jsonData = await response.json();
         setData(jsonData);
+
+        const storedLoginState = localStorage.getItem("isAttendanceLoggedIn");
+        if (storedLoginState==="true") {
+          setLoggedIn(true);
+        }
        
         //console.log(jsonData);
       } catch (error) {
@@ -95,6 +109,12 @@ const DataTableAttendance = (props) => {
 
     fetchData();
   }, [selectedValue,reload,searchUser]);
+
+  const logout=()=>{
+    setLoggedIn(false);
+    localStorage.setItem("isAttendanceLoggedIn", "false");
+  }
+
   return (
     <div className=''>
       <hr/>
@@ -106,36 +126,35 @@ const DataTableAttendance = (props) => {
       </>
     )}
 
-        
-      <h2 className='text-center  text-success'>DAE-Nuclear Physics symposium registration portal</h2>
+      <table className='table'>  
+      <tr><td><h2 className='text-center  text-success'>DAE-Nuclear Physics symposium registration portal</h2></td>  <td>{isAttendanceLoggedIn && <Logout logout={logout} />} </td> </tr>
+      </table>
       <hr/>
+      {
+      isAttendanceLoggedIn ? 
+      <div >
       <table className="table table-secondary">
         <tr className='red-border-box bg-secondary'>
           <td className="col-8"> <Label> Search (uname / reg. no / FirstName / LastName) </Label></td>
           <td className="col-4"><Input handleChange={handleSearchUser}/></td>
         </tr>
       </table>
-
       <hr/>
             <table border="1" className='table table-danger table-hover mb-0'>
         <thead className="thead-dark">
           <tr className='table-warning'>
           <th className='col-4 text-center'>S. No.</th>
           <th className='col-4 text-center'>Reg. No.</th>
-            
             <th className='col-4 text-center'>Name</th>
             <th className='col-4 text-center'>Select</th>
-            
             {/* Add more headers as needed */}
           </tr>
         </thead>
         <tbody>
           {data.map((item, index) => (
-           
             <tr key={index} className={getRowColor(item.attended)}>
                <td className='col-4 text-center'>{index}</td>
              <td className='col-4 text-center'>{item.regno}</td>
-              
               <td className='col-4 text-center'>{item.Initials+" "+item.FirstName+" "+item.LastName}</td>
              <td><Select options={dropdownData.attendance} defaultValue={item.attended} handleChange={(event)=>handleDropdownChange(event,item.uname)} disabled={disabled} triggerReload={triggerReload}/></td>
                            
@@ -144,6 +163,9 @@ const DataTableAttendance = (props) => {
           ))}
         </tbody>
       </table>
+      </div>
+      : <Login checkLogin={checkLogin} />
+        }
     </div>
     );
 };
