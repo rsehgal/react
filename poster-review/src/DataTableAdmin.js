@@ -31,7 +31,7 @@ const DataTableAdmin = (props) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   //console.log("QUERY PARAMS :"+queryParams);
-  const selectedValue = queryParams.get('refereeName');
+  const selectedValue = queryParams.get('hash');
   
  
   
@@ -66,7 +66,7 @@ const DataTableAdmin = (props) => {
       try {
         //alert(selectedValue);
         //const response = await fetch(`/api/update?refereeName=${encodeURIComponent(selectedValue)}`);
-        const response = await fetch('https://sympnp.org/phpNode/getData.php?refereeName='+selectedValue);
+        const response = await fetch('https://sympnp.org/phpNode/getData.php?hash='+selectedValue);
         const jsonData = await response.json();
         console.log(jsonData);
         setData(jsonData);

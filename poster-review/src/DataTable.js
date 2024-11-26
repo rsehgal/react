@@ -32,7 +32,9 @@ const DataTable = (props) => {
   // Get the query parameter from the URL
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const selectedValue = queryParams.get('refereeName');
+  //const selectedValue = queryParams.get('refereeName');
+  const selectedValue = queryParams.get('hash');
+  //const refereeName="";
   //alert(selectedValue);
   const triggerReload = () => {
     //alert("Trigger Reloadedddd..");
@@ -57,8 +59,10 @@ const DataTable = (props) => {
     const fetchData = async () => {
       if (!selectedValue) return;
 
-      setLoading(true); // Start loading
 
+      setLoading(true); // Start loading
+/*
+      
       try {
         //const response = await fetch(`/api/getReviewerName?refereeName=${encodeURIComponent(selectedValue)}`);
         const response = await fetch(`https://sympnp.org/phpNode/getData.php?refereeName=${encodeURIComponent(selectedValue)}`);
@@ -71,13 +75,16 @@ const DataTable = (props) => {
       } finally {
         setLoading(false); // Stop loading
       }
-
+      */
 
       setLoading(true); // Start loading
       try {
         //const response = await fetch(`/api/update?refereeName=${encodeURIComponent(selectedValue)}`);
-        const response = await fetch('https://sympnp.org/phpNode/getData.php?refereeName='+selectedValue);
+        //const response = await fetch('https://sympnp.org/phpNode/getData.php?refereeName='+selectedValue);
+        const response = await fetch('https://sympnp.org/phpNode/getData.php?hash='+selectedValue);
         const jsonData = await response.json();
+        //refereeName = 
+        setRefereeName(jsonData[0].refereeName);
         console.log(jsonData);
         setData(jsonData);
       } catch (error) {
@@ -119,7 +126,7 @@ const DataTable = (props) => {
              
               <td className='col-4 text-center'>{item.Filename}</td>
               <td className='col-4 text-center'>{item.marks}</td>
-              <td className='col-4 text-center'><PosterReview paper={item.Filename} refereeName={selectedValue} triggerReload={triggerReload} marks={item.marks} disabled={!isOnline}/></td>
+              <td className='col-4 text-center'><PosterReview paper={item.Filename} refereeName={refereeName} triggerReload={triggerReload} marks={item.marks} disabled={!isOnline}/></td>
              
               {/* Add more columns as needed */}
             </tr>

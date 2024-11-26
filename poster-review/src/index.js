@@ -17,21 +17,21 @@ root.render(
     <Router>
       <Routes>
         {
-        <Route path="/login" element={  <Login />} />
+        //<Route path="/login" element={  <Login />} />
         }
         {
-        <Route path="/posterReview" element={<DataTable />} />
+        <Route path="/posterReviewer" element={<DataTable />} />
         }
         {
-        <Route path="/posterAdmin" element={<DataTableAdmin />} />
-        }
-
-        {
-        <Route path="/attendance" element={<DataTableAttendance />} />
+        //<Route path="/posterAdmin" element={<DataTableAdmin />} />
         }
 
         {
-          <Route path="/regSearch" element={<DataTableRegSearch />} />
+        //<Route path="/attendance" element={<DataTableAttendance />} />
+        }
+
+        {
+         // <Route path="/regSearch" element={<DataTableRegSearch />} />
         }
       </Routes>
     </Router>
