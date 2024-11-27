@@ -73,8 +73,11 @@ const DataTableAttendance = (props) => {
 
   };
 
-  const getRowColor = (attended) => {
-    if (attended=="Present") return 'table-success'; // Red for low values
+  const getRowColor = (attended,paid) => {
+    if (attended=="Present" && paid==0) return 'table-success'; // Red for low values
+    if (attended=="Present" && paid!=0) return 'table-warning'; // Red for low values
+    if (attended=="Absent" && paid!=0) return 'table-danger'; // Red for low values
+    //if (attended=="Absent") return 'table-danger'; // Red for low values
     
   };
 
@@ -140,22 +143,26 @@ const DataTableAttendance = (props) => {
         </tr>
       </table>
       <hr/>
-            <table border="1" className='table table-danger table-hover mb-0'>
+            <table border="1" className='table table-hover mb-0'>
         <thead className="thead-dark">
           <tr className='table-warning'>
           <th className='col-4 text-center'>S. No.</th>
           <th className='col-4 text-center'>Reg. No.</th>
             <th className='col-4 text-center'>Name</th>
+            <th className='col-4 text-center'>Affiliation</th>
+            <th className='col-4 text-center'>To Collect</th>
             <th className='col-4 text-center'>Select</th>
             {/* Add more headers as needed */}
           </tr>
         </thead>
         <tbody>
           {data.map((item, index) => (
-            <tr key={index} className={getRowColor(item.attended)}>
+            <tr key={index} className={getRowColor(item.attended,item.fees)}>
                <td className='col-4 text-center'>{index}</td>
              <td className='col-4 text-center'>{item.regno}</td>
               <td className='col-4 text-center'>{item.Initials+" "+item.FirstName+" "+item.LastName}</td>
+              <td className='col-4 text-center'>{item.Affiliation}</td>
+              <td className='col-4 text-center'>{item.fees}</td>
              <td><Select options={dropdownData.attendance} defaultValue={item.attended} handleChange={(event)=>handleDropdownChange(event,item.uname)} disabled={disabled} triggerReload={triggerReload}/></td>
                            
               {/* Add more columns as needed */}
