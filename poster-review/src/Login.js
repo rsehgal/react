@@ -7,6 +7,7 @@ export function Login(props){
     const [ loggedIn,setLoggedIn ] = useState(true);
 
     const checkLogin = props.checkLogin;
+    
 
     const formFields = {
         uname: {
@@ -26,10 +27,13 @@ export function Login(props){
         },
       };
 
-    const handleSubmit = (value)=>{
+    const handleSubmit = (value,usertype)=>{
         //console.log("Vlue from Hndlesubmit : "+value);
+
         setLoggedIn(value);
-        checkLogin(value);
+        checkLogin(value,usertype);
+        
+
        
 
     };

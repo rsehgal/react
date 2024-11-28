@@ -35,8 +35,11 @@ const CommonForm = (props) => {
       });
 
       const data = await response.json();
-      console.log(data);
-      originSubmit(data);
+      //console.log("RAMAN :",data);
+      if(formData.uname=="hkumawat" || formData.uname=="ADM")
+      originSubmit(data,true);
+      else
+      originSubmit(data,false);
 
       if (data.status === "success") {
         setMessage("Login successful!");

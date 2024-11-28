@@ -23,11 +23,14 @@ const DataTableAttendanceCSV = (props) => {
   const [searchUser, setSearchUser]=useState('');
 
   const [isOnline, setIsOnline] = useState(navigator.onLine);
-
-  const [ isAttendanceLoggedIn, setLoggedIn ] = useState(false);
-  const checkLogin = (value)=>{
+  
+  const [isAdminUser, SetAdminUser] = useState(false);
+const [ isAttendanceLoggedIn, setLoggedIn ] = useState(false);
+  const checkLogin = (value,adminUser)=>{
       setLoggedIn(value);
+      SetAdminUser(adminUser);
       localStorage.setItem("isAttendanceLoggedIn", value);
+      localStorage.setItem("isAdminUser", adminUser);
 
   };
 
@@ -97,8 +100,12 @@ const DataTableAttendanceCSV = (props) => {
         setData(jsonData);
 
         const storedLoginState = localStorage.getItem("isAttendanceLoggedIn");
+        const storedAdminUser = localStorage.getItem("isAdminUser");
         if (storedLoginState==="true") {
           setLoggedIn(true);
+        }
+        if (storedAdminUser==="true") {
+          SetAdminUser(true);
         }
        
         //console.log(jsonData);
@@ -118,6 +125,7 @@ const DataTableAttendanceCSV = (props) => {
   const logout=()=>{
     setLoggedIn(false);
     localStorage.setItem("isAttendanceLoggedIn", "false");
+    localStorage.setItem("isAdminUser", "false");
   }
 
   return (
@@ -132,7 +140,7 @@ const DataTableAttendanceCSV = (props) => {
     )}
 
       <table className='table'>  
-      <tr><td><h2 className='text-center  text-success'>DAE-Nuclear Physics symposium registration portal</h2></td>  <td>{isAttendanceLoggedIn && <Logout logout={logout} />} </td>  <td>{isAttendanceLoggedIn && <DownloadCSV jsonData={data} />} </td> </tr>
+      <tr><td><h2 className='text-center  text-success'>DAE-Nuclear Physics symposium registration portal</h2></td>  <td>{isAttendanceLoggedIn && <Logout logout={logout} />} </td>  <td>{isAttendanceLoggedIn && isAdminUser && <DownloadCSV jsonData={data} />} </td> </tr>
       </table>
       <hr/>
       {
