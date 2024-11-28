@@ -10,7 +10,11 @@ import DataTableAttendance from './DataTableAttendance';
 import DataTableRegSearch from './DataTableRegSearch';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Login } from './Login';
+import jsonData from './json/data.json'
+import DownloadCSV from './DownloadCSV';
+import DataTableAttendanceCSV from './DataTableAttendanceCSV';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
   
@@ -27,12 +31,19 @@ root.render(
         }
 
         {
-        //<Route path="/attendance" element={<DataTableAttendance />} />
+        <Route path="/attendance" element={<DataTableAttendance />} />
         }
 
         {
          // <Route path="/regSearch" element={<DataTableRegSearch />} />
         }
+        {
+        // <Route path="/Download" element={<DownloadCSV jsonData={jsonData.testcsvdata} />} />
+        }
+        {
+         <Route path="/attendanceCSV" element={<DataTableAttendanceCSV />} />
+        }
+
       </Routes>
     </Router>
     
