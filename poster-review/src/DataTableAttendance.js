@@ -146,24 +146,24 @@ const DataTableAttendance = (props) => {
             <table border="1" className='table table-hover mb-0'>
         <thead className="thead-dark">
           <tr className='table-warning'>
-          <th className='col-4 text-center'>S. No.</th>
-          <th className='col-4 text-center'>Reg. No.</th>
-            <th className='col-4 text-center'>Name</th>
-            <th className='col-4 text-center'>Affiliation</th>
-            <th className='col-4 text-center'>To Collect</th>
-            <th className='col-4 text-center'>Select</th>
+          <th className='col-1 text-center'>S. No.</th>
+          <th className='col-1 text-center'>Reg. No.</th>
+            <th className='col-2 text-center'>Name</th>
+            <th className='col-6 text-center'>Affiliation</th>
+            <th className='col-1 text-center'>To Collect</th>
+            <th className='col-1 text-center'>Select</th>
             {/* Add more headers as needed */}
           </tr>
         </thead>
         <tbody>
           {data.map((item, index) => (
             <tr key={index} className={getRowColor(item.attended,item.fees)}>
-               <td className='col-4 text-center'>{index}</td>
-             <td className='col-4 text-center'>{item.regno}</td>
-              <td className='col-4 text-center'>{item.Initials+" "+item.FirstName+" "+item.LastName}</td>
-              <td className='col-4 text-center'>{item.Affiliation}</td>
-              <td className='col-4 text-center'>{item.fees}</td>
-             <td><Select options={dropdownData.attendance} defaultValue={item.attended} handleChange={(event)=>handleDropdownChange(event,item.uname)} disabled={disabled} triggerReload={triggerReload}/></td>
+               <td className='col-1 text-center'>{index}</td>
+             <td className='col-1 text-center'>{item.regno}</td>
+              <td className='col-2 text-center'>{item.Initials+" "+item.FirstName+" "+item.LastName}</td>
+              <td className='col-6 text-center'>{item.Affiliation}</td>
+              <td className='col-1 text-center'>{item.fees}</td>
+             <td className='col-1 text-center'><Select options={dropdownData.attendance} defaultValue={item.attended} handleChange={(event)=>handleDropdownChange(event,item.uname)} disabled={disabled} triggerReload={triggerReload}/></td>
                            
               {/* Add more columns as needed */}
             </tr>
