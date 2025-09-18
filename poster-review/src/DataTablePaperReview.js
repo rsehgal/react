@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PosterReview from './PosterReview';
 import { useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 
 
 const DataTablePaperReview = (props) => {
@@ -35,6 +36,18 @@ const DataTablePaperReview = (props) => {
   const handleNumberChange = (e) => {
 
   }
+
+
+  const handleMarksChange = (filename, value) => {
+    if (value === "" || (Number(value) >= 0 && Number(value) <= 10)) {
+      setPapers((prev) =>
+        prev.map((p) =>
+          p.Filename === filename ? { ...p, marks: value } : p
+        )
+      );
+    }
+  }
+
   /*
   // Handle number input (limit 0–10)
   const handleNumberChange = (e) => {
@@ -48,12 +61,32 @@ const DataTablePaperReview = (props) => {
   };
 */
   // Update button action
-  const handleUpdate = (paper) => {
-    alert(JSON.stringify(paper));
+  const handleUpdate = async (paper) => {
+    //alert(JSON.stringify(paper));
     //console.log(paper);
     //alert(`Message: ${text}\nNumber: ${number}`);
     
     // Here you can also send to API / database instead of alert
+
+
+    try {
+      
+      const urltoFire='https://sympnp.org/phpNode/updateDataPaperReview.php?refereeName='+selectedValue+'&Filename='+paper.Filename+'&remarks='+paper.remarks+'&marks='+paper.marks;
+      /*
+      alert(urltoFire);
+      const response = await fetch(urltoFire);
+      const jsonData = await response.json();
+      console.log(jsonData);
+      */
+      const response = await axios.get(urltoFire);
+      console.log('Database update response:', response.data);
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false); // Stop loading
+    }
+
   };
 
   useEffect(() => {
@@ -180,9 +213,10 @@ const DataTablePaperReview = (props) => {
               <td className='text-center'> 
                 <input
                   type="number"
+                  value={item.marks || ""}
                   min="0"
                   max="10"
-                  onChange={handleNumberChange}
+                  onChange={(e) => handleMarksChange(item.Filename, e.target.value)}
                   onKeyDown={(e) => e.preventDefault()}
                   className="border p-2 rounded w-full"
                   placeholder=""
