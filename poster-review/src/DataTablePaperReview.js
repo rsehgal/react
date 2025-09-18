@@ -6,6 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const DataTablePaperReview = (props) => {
+  const [text, setText] = useState("");
+  const [number, setNumber] = useState("");
+  const maxLength = 500;
+
   const [reload, setReload] = useState(false); 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -13,6 +17,32 @@ const DataTablePaperReview = (props) => {
   const [refereeName,setRefereeName]=useState('');
 
   const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  //This will control the number of characters in textarea
+  const handleTextChange = (e) => {
+    if (e.target.value.length <= maxLength) {
+      setText(e.target.value);
+    } else {
+      alert(`Maximum ${maxLength} characters allowed`);
+    }
+  };
+
+  // Handle number input (limit 0–10)
+  const handleNumberChange = (e) => {
+    const newValue = e.target.value;
+    if (newValue === "" || (Number(newValue) >= 0 && Number(newValue) <= 10)) {
+      setNumber(newValue);
+    }else{
+      alert("Please enter a number between 0 and 10");
+      setNumber("");
+    }
+  };
+
+  // Update button action
+  const handleUpdate = () => {
+    alert(`Message: ${text}\nNumber: ${number}`);
+    // Here you can also send to API / database instead of alert
+  };
 
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
@@ -112,9 +142,13 @@ const DataTablePaperReview = (props) => {
         <thead className="thead-dark">
           <tr className='table-warning'>
           
-            <th className='col-4 text-center'>Filename</th>
-            <th className='col-4 text-center'>Marks</th>
-            <th className='col-4 text-center'>Select</th>
+            <th className='text-center'>Username</th>
+            <th className='text-center'>Title</th>
+            <th className='text-center'>Topic</th>
+            <th className='text-center'>Uploaded File</th>
+            <th className='text-center'>Referee Remarks</th>
+            <th className='text-center'>Merit Points</th>
+            <th className='text-center'>Update Status</th>
             
             {/* Add more headers as needed */}
           </tr>
@@ -124,8 +158,41 @@ const DataTablePaperReview = (props) => {
            
             <tr key={index} className={getRowColor(item.marks)}>
              
-              <td className='col-4 text-center'>{item.Filename}</td>
-              <td className='col-4 text-center'>{item.marks}</td>
+              <td className='text-center'>{item.uname}</td>
+              <td className='text-center'>{item.Title}</td>
+              <td className='text-center'>{item.Topic}</td>
+              <td className='text-center'> {item.Filename}</td>
+              
+              <td className='col-3 text-center'> 
+               <textarea
+                onChange={handleTextChange}
+                rows="6" cols="50" 
+                className="w-full border rounded-lg p-2"
+                placeholder={`Type your message... (max ${maxLength} characters)`}
+              />
+              </td>
+              <td className='text-center'> 
+                <input
+                  type="number"
+                  min="0"
+                  max="10"
+                  onChange={handleNumberChange}
+                  onKeyDown={(e) => e.preventDefault()}
+                  className="border p-2 rounded w-full"
+                  placeholder=""
+              />
+              </td>
+
+          <td className='text-center'>
+          <button
+            onClick={handleUpdate}
+            className="bg-blue-600 text-dark px-4 py-2 rounded-lg shadow hover:bg-blue-700"
+          >
+            Update
+          </button>
+          </td>
+
+
               {/*<td className='col-4 text-center'><PosterReview paper={item.Filename} refereeName={selectedValue} triggerReload={triggerReload} marks={item.marks} disabled={!isOnline}/></td>*/}
              
               {/* Add more columns as needed */}
