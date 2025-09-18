@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-const DataTable = (props) => {
+const DataTablePaperReview = (props) => {
   const [reload, setReload] = useState(false); 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -33,7 +33,8 @@ const DataTable = (props) => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   //const selectedValue = queryParams.get('refereeName');
-  const selectedValue = queryParams.get('hash');
+  //NOW const selectedValue = queryParams.get('hash');
+  const selectedValue = queryParams.get('refereeName');
   //alert(selectedValue);
   const triggerReload = () => {
     //alert("Trigger Reloadedddd..");
@@ -59,11 +60,12 @@ const DataTable = (props) => {
       if (!selectedValue) return;
 
       setLoading(true); // Start loading
-
+      /*
       try {
         //const response = await fetch(`/api/getReviewerName?refereeName=${encodeURIComponent(selectedValue)}`);
         //const response = await fetch(`https://sympnp.org/phpNode/getData.php?refereeName=${encodeURIComponent(selectedValue)}`);
-        const response = await fetch(`https://sympnp.org/phpNode/getDataLocal.php?hash=${encodeURIComponent(selectedValue)}`);
+        //NOW const response = await fetch(`https://sympnp.org/phpNode/getDataLocal.php?hash=${encodeURIComponent(selectedValue)}`);
+        const response = await fetch(`https://sympnp.org/phpNode/getDataPaperReview.php?refereeName=${encodeURIComponent(selectedValue)}`);
         const jsonData = await response.json();
         const refName = jsonData[0].refereeName;
         console.log(refName);
@@ -73,13 +75,15 @@ const DataTable = (props) => {
       } finally {
         setLoading(false); // Stop loading
       }
+      */
 
 
       setLoading(true); // Start loading
       try {
         //const response = await fetch(`/api/update?refereeName=${encodeURIComponent(selectedValue)}`);
         //const response = await fetch('https://sympnp.org/phpNode/getData.php?refereeName='+selectedValue);
-                const response = await fetch('https://sympnp.org/phpNode/getDataLocal.php?hash='+selectedValue);
+        //NOW const response = await fetch('https://sympnp.org/phpNode/getDataLocal.php?hash='+selectedValue);
+        const response = await fetch('https://sympnp.org/phpNode/getDataPaperReview.php?refereeName='+selectedValue);
         const jsonData = await response.json();
         console.log(jsonData);
         setData(jsonData);
@@ -122,7 +126,7 @@ const DataTable = (props) => {
              
               <td className='col-4 text-center'>{item.Filename}</td>
               <td className='col-4 text-center'>{item.marks}</td>
-              <td className='col-4 text-center'><PosterReview paper={item.Filename} refereeName={selectedValue} triggerReload={triggerReload} marks={item.marks} disabled={!isOnline}/></td>
+              {/*<td className='col-4 text-center'><PosterReview paper={item.Filename} refereeName={selectedValue} triggerReload={triggerReload} marks={item.marks} disabled={!isOnline}/></td>*/}
              
               {/* Add more columns as needed */}
             </tr>
@@ -133,5 +137,5 @@ const DataTable = (props) => {
     );
 };
 
-export default DataTable;
+export default DataTablePaperReview;
 

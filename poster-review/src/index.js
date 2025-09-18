@@ -7,14 +7,15 @@ import PosterReview from './PosterReview';
 import DataTable from './DataTable';
 import DataTableAdmin from './DataTableAdmin';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import DataTablePaperReview from './DataTablePaperReview';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     
-    <Router>
+    <Router>  
       <Routes>
-        <Route path="/" element={<DataTableAdmin />} />
+        <Route path="/" element={<DataTablePaperReview />} />
       </Routes>
     </Router>
     

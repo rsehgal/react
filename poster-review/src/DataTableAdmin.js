@@ -29,6 +29,7 @@ const DataTableAdmin = (props) => {
 
   // Get the query parameter from the URL
   const location = useLocation();
+//console.log(location);
   const queryParams = new URLSearchParams(location.search);
   //console.log("QUERY PARAMS :"+queryParams);
   const selectedValue = queryParams.get('refereeName');
