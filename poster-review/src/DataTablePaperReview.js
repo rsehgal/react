@@ -6,8 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const DataTablePaperReview = (props) => {
-  const [text, setText] = useState("");
-  const [number, setNumber] = useState("");
+  
+  const [papers, setPapers] = useState([]);
   const maxLength = 500;
 
   const [reload, setReload] = useState(false); 
@@ -18,15 +18,24 @@ const DataTablePaperReview = (props) => {
 
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
-  //This will control the number of characters in textarea
-  const handleTextChange = (e) => {
-    if (e.target.value.length <= maxLength) {
-      setText(e.target.value);
-    } else {
-      alert(`Maximum ${maxLength} characters allowed`);
-    }
-  };
 
+  
+  const handleTextChange = (filename, value) => {
+
+    setPapers((prev) =>
+      prev.map((p) =>
+        p.Filename === filename && value.length <= maxLength
+          ? { ...p, remarks: value }
+          : p
+      )
+    );
+  };
+  
+
+  const handleNumberChange = (e) => {
+
+  }
+  /*
   // Handle number input (limit 0–10)
   const handleNumberChange = (e) => {
     const newValue = e.target.value;
@@ -37,10 +46,13 @@ const DataTablePaperReview = (props) => {
       setNumber("");
     }
   };
-
+*/
   // Update button action
-  const handleUpdate = () => {
-    alert(`Message: ${text}\nNumber: ${number}`);
+  const handleUpdate = (paper) => {
+    alert(JSON.stringify(paper));
+    //console.log(paper);
+    //alert(`Message: ${text}\nNumber: ${number}`);
+    
     // Here you can also send to API / database instead of alert
   };
 
@@ -65,20 +77,17 @@ const DataTablePaperReview = (props) => {
   //const selectedValue = queryParams.get('refereeName');
   //NOW const selectedValue = queryParams.get('hash');
   const selectedValue = queryParams.get('refereeName');
+  useEffect(() => {
+    if (selectedValue) {
+      setRefereeName(selectedValue);
+    }
+  }, [selectedValue]);
+
   //alert(selectedValue);
   const triggerReload = () => {
     //alert("Trigger Reloadedddd..");
     setReload(!reload);  // Toggle state to trigger re-render
   };
-
-  /*
-  const updateMyState = (key, newValue) => {
-    setData(prevState => ({
-      ...prevState,  // Spread the previous state
-      [key]: newValue  // Update the specific key
-    }));
-  };
-  */
 
   const getRowColor = (value) => {
     if (parseInt(value,10) > 0) return 'table-success'; // Red for low values
@@ -90,24 +99,7 @@ const DataTablePaperReview = (props) => {
       if (!selectedValue) return;
 
       setLoading(true); // Start loading
-      /*
-      try {
-        //const response = await fetch(`/api/getReviewerName?refereeName=${encodeURIComponent(selectedValue)}`);
-        //const response = await fetch(`https://sympnp.org/phpNode/getData.php?refereeName=${encodeURIComponent(selectedValue)}`);
-        //NOW const response = await fetch(`https://sympnp.org/phpNode/getDataLocal.php?hash=${encodeURIComponent(selectedValue)}`);
-        const response = await fetch(`https://sympnp.org/phpNode/getDataPaperReview.php?refereeName=${encodeURIComponent(selectedValue)}`);
-        const jsonData = await response.json();
-        const refName = jsonData[0].refereeName;
-        console.log(refName);
-        setRefereeName(refName);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false); // Stop loading
-      }
-      */
-
-
+      
       setLoading(true); // Start loading
       try {
         //const response = await fetch(`/api/update?refereeName=${encodeURIComponent(selectedValue)}`);
@@ -115,7 +107,19 @@ const DataTablePaperReview = (props) => {
         //NOW const response = await fetch('https://sympnp.org/phpNode/getDataLocal.php?hash='+selectedValue);
         const response = await fetch('https://sympnp.org/phpNode/getDataPaperReview.php?refereeName='+selectedValue);
         const jsonData = await response.json();
-        console.log(jsonData);
+        //console.log(jsonData);
+
+        /*
+        //setting the initial state
+        const formatted = jsonData.map((item) => ({
+          id: item.Filename,
+          text: item.remarks || "",    // fallback to empty string
+          number: item.marks || "" // fallback to empty string
+        }));
+        */
+        setPapers(jsonData);
+        console.log(papers);
+
         setData(jsonData);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -125,7 +129,8 @@ const DataTablePaperReview = (props) => {
     };
 
     fetchData();
-  }, [selectedValue,reload]);
+  },[refereeName]);
+  //}, [selectedValue,reload]);
   return (
     <div>
       <hr/>
@@ -154,7 +159,7 @@ const DataTablePaperReview = (props) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
+          {papers.map((item, index) => (
            
             <tr key={index} className={getRowColor(item.marks)}>
              
@@ -165,7 +170,8 @@ const DataTablePaperReview = (props) => {
               
               <td className='col-3 text-center'> 
                <textarea
-                onChange={handleTextChange}
+                value={item.remarks || ""}
+                onChange={(e) => handleTextChange(item.Filename, e.target.value)}
                 rows="6" cols="50" 
                 className="w-full border rounded-lg p-2"
                 placeholder={`Type your message... (max ${maxLength} characters)`}
@@ -185,7 +191,7 @@ const DataTablePaperReview = (props) => {
 
           <td className='text-center'>
           <button
-            onClick={handleUpdate}
+            onClick={() => handleUpdate(item)}
             className="bg-blue-600 text-dark px-4 py-2 rounded-lg shadow hover:bg-blue-700"
           >
             Update
