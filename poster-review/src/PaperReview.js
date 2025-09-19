@@ -3,6 +3,10 @@ import DataTablePaperReview from './DataTablePaperReview';
 import { useLocation } from 'react-router-dom';
 import RefereeConfirmation from './RefereeConfirmation';
 import DeclineMessage from './DeclineMessage';
+import RefereeInstructions from './RefereeInstructions';
+import DeclineMessage2 from './DeclineMessage2';
+import ProceedButton from './ProceedButton';
+import RefereeConfirmation2 from './RefereeConfirmation2';
 
 
 const PaperReview = (props) => {
@@ -11,6 +15,7 @@ const PaperReview = (props) => {
 
     const [refConfirmationStatus, setRefConfirmationStatus] = useState('');
     const [refereeName, setRefereeName] = useState('');
+    const [proceed, setProceed] = useState('');
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -46,9 +51,11 @@ const PaperReview = (props) => {
     }, [refConfirmationStatus]); // runs only once after initial render
 
     return (<div>
-        {refConfirmationStatus==="accepted" && <DataTablePaperReview />}
-        {refConfirmationStatus==="declined" && <DeclineMessage />}
-        {refConfirmationStatus==="allotted" && <RefereeConfirmation onSubmit={setRefConfirmationStatus}/>}
+        <RefereeInstructions />
+        <ProceedButton onProceed={setProceed}/>
+        {refConfirmationStatus==="accepted" && proceed && <DataTablePaperReview />}
+        {refConfirmationStatus==="declined" && proceed && <DeclineMessage2 />}
+        {refConfirmationStatus==="allotted" && proceed && <RefereeConfirmation2 onSubmit={setRefConfirmationStatus}/>}
     </div>);
 
 }

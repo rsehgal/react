@@ -228,7 +228,7 @@ const DataTablePaperReview = (props) => {
             onClick={() => handleUpdate(item)}
             className="bg-blue-600 text-dark px-4 py-2 rounded-lg shadow hover:bg-blue-700"
           >
-            Update
+            Save
           </button>
           </td>
 
