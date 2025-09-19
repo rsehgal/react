@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
 
-const DataTablePaperReview = (props) => {
+const DataTablePaperReview = (prop) => {
   
   const [papers, setPapers] = useState([]);
   const maxLength = 500;
@@ -105,11 +105,11 @@ const DataTablePaperReview = (props) => {
   
 
   // Get the query parameter from the URL
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
+  //const location = useLocation();
+  //const queryParams = new URLSearchParams(location.search);
   //const selectedValue = queryParams.get('refereeName');
   //NOW const selectedValue = queryParams.get('hash');
-  const selectedValue = queryParams.get('refereeName');
+  const selectedValue = prop.refereeName; //queryParams.get('refereeName');
   useEffect(() => {
     if (selectedValue) {
       setRefereeName(selectedValue);
@@ -175,7 +175,7 @@ const DataTablePaperReview = (props) => {
       </>
     )}
 
-      <h2 className='text-center  text-success'>Welcome : {refereeName}</h2>
+      <h2 className='text-center  text-success'>Welcome : {prop.fullname}</h2>
             <table border="1" className='table table-danger table-hover mb-0'>
         <thead className="thead-dark">
           <tr className='table-warning'>

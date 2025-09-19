@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
-const RefereeConfirmation2 = ({ onSubmit }) => {
+//const RefereeConfirmation2 = ({ onSubmit,refereeName }) => {
+  const RefereeConfirmation2 = (prop) => {
   const [decision, setDecision] = useState(""); // "accepted" or "declined"
   const [loading, setLoading] = useState(false);
 
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const selectedValue = queryParams.get("refereeName");
+  //const location = useLocation();
+  //const queryParams = new URLSearchParams(location.search);
+  const selectedValue = prop.refereeName;//queryParams.get("refereeName");
+  console.log("Welcome "+selectedValue);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +29,7 @@ const RefereeConfirmation2 = ({ onSubmit }) => {
       console.log("DB update result:", result);
 
       // update parent state
-      onSubmit(decision);
+      prop.onSubmit(decision);
     } catch (error) {
       console.error("Error updating DB:", error);
     } finally {
@@ -43,7 +45,7 @@ const RefereeConfirmation2 = ({ onSubmit }) => {
         </div>
         <div className="card-body text-center">
           <h5 className="mb-4 text-secondary">
-            Welcome <span className="text-dark fw-bold">{selectedValue}</span>,
+            Welcome <span className="text-dark fw-bold">{prop.fullname}</span>,
             <br />
             please confirm your reviewing acceptance:
           </h5>
