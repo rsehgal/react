@@ -8,6 +8,8 @@ import DataTable from './DataTable';
 import DataTableAdmin from './DataTableAdmin';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import DataTablePaperReview from './DataTablePaperReview';
+import PaperReview from './PaperReview';
+import RefereeConfirmation from './RefereeConfirmation';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +17,7 @@ root.render(
     
     <Router>  
       <Routes>
-        <Route path="/" element={<DataTablePaperReview />} />
+        <Route path="/" element={<PaperReview />} />
       </Routes>
     </Router>
     
