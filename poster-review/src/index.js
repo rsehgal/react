@@ -6,11 +6,11 @@ import reportWebVitals from './reportWebVitals';
 import PosterReview from './PosterReview';
 import DataTable from './DataTable';
 import DataTableAdmin from './DataTableAdmin';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
 import DataTablePaperReview from './DataTablePaperReview';
 import PaperReview from './PaperReview';
 import RefereeConfirmation from './RefereeConfirmation';
-
+/*
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -23,6 +23,14 @@ root.render(
     
     
   </React.StrictMode>
+);
+*/
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <BrowserRouter basename="/PaperReview">
+    <PaperReview /> 
+</BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
