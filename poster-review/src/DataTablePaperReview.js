@@ -69,7 +69,7 @@ const DataTablePaperReview = (prop) => {
 
     // Here you can also send to API / database instead of alert
 
-    if(prop.locked){
+    if (prop.locked) {
       alert("Your decisions are alreay locked. Please contact admin.");
       return;
     }
@@ -183,7 +183,7 @@ const DataTablePaperReview = (prop) => {
       <table border="1" className='table table-danger table-hover mb-0'>
         <thead className="thead-dark">
           <tr className='table-warning'>
-
+            <th className='text-center'>S. No.</th>
             <th className='text-center'>Username</th>
             <th className='text-center'>Title</th>
             <th className='text-center'>Topic</th>
@@ -198,12 +198,21 @@ const DataTablePaperReview = (prop) => {
         <tbody>
           {papers.map((item, index) => (
 
-            <tr key={index} className={getRowColor(item.marks)}>
 
+            <tr key={index} className={getRowColor(item.marks)}>
+              <td className='text-center'>{index + 1}</td>
               <td className='text-center'>{item.uname}</td>
               <td className='text-center'>{item.Title}</td>
               <td className='text-center'>{item.Topic}</td>
-              <td className='text-center'> {item.Filename}</td>
+              <td className='text-center'>
+                <a
+                  href={`${process.env.PUBLIC_URL}/Uploads/${item.Filename}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.Filename}
+                </a>
+              </td>
 
               <td className='col-3 text-center'>
                 <textarea
@@ -247,7 +256,7 @@ const DataTablePaperReview = (prop) => {
           ))}
         </tbody>
       </table>
-      
+
     </div>
   );
 };
