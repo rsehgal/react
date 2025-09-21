@@ -4,23 +4,24 @@ import PosterReview from './PosterReview';
 import { useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import LockButton from './LockButton';
 
 
 const DataTablePaperReview = (prop) => {
-  
+
   const [papers, setPapers] = useState([]);
   const maxLength = 500;
 
-  const [reload, setReload] = useState(false); 
+  const [reload, setReload] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   //const [marks, setMarks] = useState('');
-  const [refereeName,setRefereeName]=useState('');
+  const [refereeName, setRefereeName] = useState('');
 
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
 
-  
+
   const handleTextChange = (filename, value) => {
 
     setPapers((prev) =>
@@ -31,7 +32,7 @@ const DataTablePaperReview = (prop) => {
       )
     );
   };
-  
+
 
   const handleNumberChange = (e) => {
 
@@ -65,13 +66,16 @@ const DataTablePaperReview = (prop) => {
     //alert(JSON.stringify(paper));
     //console.log(paper);
     //alert(`Message: ${text}\nNumber: ${number}`);
-    
+
     // Here you can also send to API / database instead of alert
 
-
+    if(prop.locked){
+      alert("Your decisions are alreay locked. Please contact admin.");
+      return;
+    }
     try {
-      
-      const urltoFire='https://sympnp.org/phpNode/updateDataPaperReview.php?refereeName='+selectedValue+'&Filename='+paper.Filename+'&remarks='+paper.remarks+'&marks='+paper.marks;
+
+      const urltoFire = 'https://sympnp.org/phpNode/updateDataPaperReview.php?refereeName=' + selectedValue + '&Filename=' + paper.Filename + '&remarks=' + paper.remarks + '&marks=' + paper.marks;
       /*
       alert(urltoFire);
       const response = await fetch(urltoFire);
@@ -102,7 +106,7 @@ const DataTablePaperReview = (prop) => {
       window.removeEventListener('offline', handleOffline);
     };
   }, []);
-  
+
 
   // Get the query parameter from the URL
   //const location = useLocation();
@@ -123,8 +127,8 @@ const DataTablePaperReview = (prop) => {
   };
 
   const getRowColor = (value) => {
-    if (parseInt(value,10) > 0) return 'table-success'; // Red for low values
-    
+    if (parseInt(value, 10) > 0) return 'table-success'; // Red for low values
+
   };
 
   useEffect(() => {
@@ -132,13 +136,13 @@ const DataTablePaperReview = (prop) => {
       if (!selectedValue) return;
 
       setLoading(true); // Start loading
-      
+
       setLoading(true); // Start loading
       try {
         //const response = await fetch(`/api/update?refereeName=${encodeURIComponent(selectedValue)}`);
         //const response = await fetch('https://sympnp.org/phpNode/getData.php?refereeName='+selectedValue);
         //NOW const response = await fetch('https://sympnp.org/phpNode/getDataLocal.php?hash='+selectedValue);
-        const response = await fetch('https://sympnp.org/phpNode/getDataPaperReview.php?refereeName='+selectedValue);
+        const response = await fetch('https://sympnp.org/phpNode/getDataPaperReview.php?refereeName=' + selectedValue);
         const jsonData = await response.json();
         //console.log(jsonData);
 
@@ -162,24 +166,24 @@ const DataTablePaperReview = (prop) => {
     };
 
     fetchData();
-  },[refereeName]);
+  }, [refereeName]);
   //}, [selectedValue,reload]);
   return (
     <div>
-      <hr/>
-      
-      { !isOnline && (
-      <>
-        <h3 className='text-danger'> You are offline</h3>
-        <hr />
-      </>
-    )}
+      <hr />
+
+      {!isOnline && (
+        <>
+          <h3 className='text-danger'> You are offline</h3>
+          <hr />
+        </>
+      )}
 
       <h2 className='text-center  text-success'>Welcome : {prop.fullname}</h2>
-            <table border="1" className='table table-danger table-hover mb-0'>
+      <table border="1" className='table table-danger table-hover mb-0'>
         <thead className="thead-dark">
           <tr className='table-warning'>
-          
+
             <th className='text-center'>Username</th>
             <th className='text-center'>Title</th>
             <th className='text-center'>Topic</th>
@@ -187,32 +191,34 @@ const DataTablePaperReview = (prop) => {
             <th className='text-center'>Referee Remarks</th>
             <th className='text-center'>Merit Points</th>
             <th className='text-center'>Update Status</th>
-            
+
             {/* Add more headers as needed */}
           </tr>
         </thead>
         <tbody>
           {papers.map((item, index) => (
-           
+
             <tr key={index} className={getRowColor(item.marks)}>
-             
+
               <td className='text-center'>{item.uname}</td>
               <td className='text-center'>{item.Title}</td>
               <td className='text-center'>{item.Topic}</td>
               <td className='text-center'> {item.Filename}</td>
-              
-              <td className='col-3 text-center'> 
-               <textarea
-                value={item.remarks || ""}
-                onChange={(e) => handleTextChange(item.Filename, e.target.value)}
-                rows="6" cols="50" 
-                className="w-full border rounded-lg p-2"
-                placeholder={`Type your message... (max ${maxLength} characters)`}
-              />
+
+              <td className='col-3 text-center'>
+                <textarea
+                  value={item.remarks || ""}
+                  onChange={(e) => handleTextChange(item.Filename, e.target.value)}
+                  rows="6" cols="50"
+                  className="w-full border rounded-lg p-2"
+                  placeholder={`Type your message... (max ${maxLength} characters)`}
+                  readOnly={prop.locked}
+                />
               </td>
-              <td className='text-center'> 
+              <td className='text-center'>
                 <input
                   type="number"
+                  readOnly={prop.locked}
                   value={item.marks || ""}
                   min="0"
                   max="10"
@@ -220,28 +226,30 @@ const DataTablePaperReview = (prop) => {
                   onKeyDown={(e) => e.preventDefault()}
                   className="border p-2 rounded w-full"
                   placeholder=""
-              />
+                />
               </td>
 
-          <td className='text-center'>
-          <button
-            onClick={() => handleUpdate(item)}
-            className="bg-blue-600 text-dark px-4 py-2 rounded-lg shadow hover:bg-blue-700"
-          >
-            Save
-          </button>
-          </td>
+              <td className='text-center'>
+                <button
+                  disabled={prop.locked || loading}
+                  onClick={() => handleUpdate(item)}
+                  className="bg-blue-600 text-dark px-4 py-2 rounded-lg shadow hover:bg-blue-700"
+                >
+                  Save
+                </button>
+              </td>
 
 
               {/*<td className='col-4 text-center'><PosterReview paper={item.Filename} refereeName={selectedValue} triggerReload={triggerReload} marks={item.marks} disabled={!isOnline}/></td>*/}
-             
+
               {/* Add more columns as needed */}
             </tr>
           ))}
         </tbody>
       </table>
+      
     </div>
-    );
+  );
 };
 
 export default DataTablePaperReview;

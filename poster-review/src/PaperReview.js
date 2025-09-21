@@ -7,6 +7,8 @@ import RefereeInstructions from './RefereeInstructions';
 import DeclineMessage2 from './DeclineMessage2';
 import ProceedButton from './ProceedButton';
 import RefereeConfirmation2 from './RefereeConfirmation2';
+import LockButton from './LockButton';
+import Message from './Message';
 
 
 const PaperReview = (props) => {
@@ -18,6 +20,7 @@ const PaperReview = (props) => {
     const [proceed, setProceed] = useState('');
     const [fullname, setFullname] = useState('');
     const [showInstructions, setShowInstructions] = useState(true);
+    const [lock, setLock] = useState(false);
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -56,13 +59,16 @@ const PaperReview = (props) => {
                 const jsonData = await response.json();
                 //console.log(jsonData[0].status);
                 const refConfStatus = jsonData[0].status;
-                //console.log(jsonData[0].uname);
+                const refLockStatus = jsonData[0].screeningStatus;
+
+                console.log(jsonData[0].screeningStatus);
                 /*
                 jsonData.map((item,value)=>{
                 console.log(item.uname);
                 });
                 */
                 setRefConfirmationStatus(refConfStatus);
+                setLock(refLockStatus === "1" ? true : false);
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -73,7 +79,7 @@ const PaperReview = (props) => {
         fetchData(); // call the async function
     }, [hashValue]); // runs only once after initial render
 
-
+   
     // 👇 Scroll down whenever proceed changes to true
     useEffect(() => {
         if (proceed && bottomRef.current) {
@@ -82,50 +88,6 @@ const PaperReview = (props) => {
     }, [proceed, refConfirmationStatus]);
 
 
-    /*
-    return (<div>
-        <RefereeInstructions />
-        <ProceedButton onProceed={setProceed} />
-        {refConfirmationStatus === "accepted" && proceed && <DataTablePaperReview fullname={fullname} refereeName={refereeName} />}
-        
-       
-        {refConfirmationStatus === "declined" && proceed && (
-            <div ref={bottomRef}>
-                <DeclineMessage2 />
-            </div>
-        )}
-
-       
-        {refConfirmationStatus === "allotted" && proceed && (
-            <div ref={bottomRef}>
-                <RefereeConfirmation2
-                    onSubmit={setRefConfirmationStatus}
-                    refereeName={refereeName}
-                />
-            </div>
-        )}
-    </div>);
-    */
-   /*
-return (
-  <div>
-    
-    {showInstructions && <RefereeInstructions />}
-
-    {!proceed && <RefereeInstructions />}  
-        {!proceed && <ProceedButton onProceed={() => setProceed(true)} />} 
-
-    {refConfirmationStatus === "accepted" && proceed && <DataTablePaperReview fullname={fullname} refereeName={refereeName}/>}
-    {refConfirmationStatus === "declined" && proceed && <DeclineMessage2 />}
-    {refConfirmationStatus === "allotted" && proceed && (
-      <RefereeConfirmation2 
-        onSubmit={setRefConfirmationStatus} 
-        refereeName={refereeName} 
-      />
-    )}
-  </div>
-);
-*/
  return (
     <div>
       {/* Instructions visible initially or when toggled back */}
@@ -146,8 +108,12 @@ return (
         </div>
       )}
 
+      {proceed && !lock && <Message text="You can modify your remarks and marks any time before finally locking it."
+       variant='info' />}
+      {proceed && lock && <Message text="Your decision are already locked." variant='danger' />}
+
       {/* Load child components based on status */}
-      {refConfirmationStatus === "accepted" && proceed && <DataTablePaperReview fullname={fullname} refereeName={refereeName}/>}
+      {refConfirmationStatus === "accepted" && proceed && <DataTablePaperReview fullname={fullname} refereeName={refereeName} locked={lock}/>}
       {refConfirmationStatus === "declined" && proceed && <DeclineMessage2 fullname={fullname}/>}
       {refConfirmationStatus === "allotted" && proceed && (
         <RefereeConfirmation2
@@ -156,6 +122,10 @@ return (
           fullname={fullname}
         />
       )}
+      <div className='text-center my-3'>
+      {proceed && !lock && <LockButton onLock={setLock} refereeName={refereeName}/>}
+      
+      </div>
     </div>
   );
 
