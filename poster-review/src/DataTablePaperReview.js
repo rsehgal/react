@@ -70,12 +70,15 @@ const DataTablePaperReview = (prop) => {
     // Here you can also send to API / database instead of alert
 
     if (prop.locked) {
-      alert("Your decisions are alreay locked. Please contact admin.");
+      alert("Your decisions are already locked. Please contact admin.");
       return;
     }
     try {
 
-      const urltoFire = 'https://sympnp.org/phpNode/updateDataPaperReview.php?refereeName=' + selectedValue + '&Filename=' + paper.Filename + '&remarks=' + paper.remarks + '&marks=' + paper.marks;
+      setLoading(true); // Start loading
+      //const urltoFire = 'https://sympnp.org/phpNode/updateDataPaperReview.php?refereeName=' + selectedValue + '&Filename=' + paper.Filename + '&remarks=' + paper.remarks + '&marks=' + paper.marks;
+      const urltoFire = `https://sympnp.org/phpNode/updateDataPaperReview.php?refereeName=${encodeURIComponent(selectedValue)}&Filename=${encodeURIComponent(paper.Filename)}&remarks=${encodeURIComponent(paper.remarks || "")}&marks=${encodeURIComponent(paper.marks || "")}`;
+      console.log(urltoFire);
       /*
       alert(urltoFire);
       const response = await fetch(urltoFire);
@@ -84,6 +87,7 @@ const DataTablePaperReview = (prop) => {
       */
       const response = await axios.get(urltoFire);
       console.log('Database update response:', response.data);
+      
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -179,6 +183,19 @@ const DataTablePaperReview = (prop) => {
         </>
       )}
 
+      {/* Fullscreen overlay with spinner */}
+      {loading && (
+        <div
+          className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+          style={{ background: "rgba(0,0,0,0.5)", zIndex: 2000 }}
+        >
+          <div className="spinner-border text-light" style={{ width: "3rem", height: "3rem" }} role="status">
+            <span className="visually-hidden">Saving...</span>
+          </div>
+        </div>
+      )}
+
+
       <h2 className='text-center  text-success'>Welcome : {prop.fullname}</h2>
       <table border="1" className='table table-danger table-hover mb-0'>
         <thead className="thead-dark">
@@ -214,7 +231,7 @@ const DataTablePaperReview = (prop) => {
                 </a>
               </td>
 
-              <td className='col-3 text-center'>
+              <td className='col-3 text-center' style={{ whiteSpace: "pre-line" }}>
                 <textarea
                   value={item.remarks || ""}
                   onChange={(e) => handleTextChange(item.Filename, e.target.value)}
