@@ -21,6 +21,7 @@ const PaperReview = (props) => {
     const [fullname, setFullname] = useState('');
     const [showInstructions, setShowInstructions] = useState(true);
     const [lock, setLock] = useState(false);
+    const [initiallyLocked, setInitialLock] = useState(false);
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -68,7 +69,8 @@ const PaperReview = (props) => {
                 });
                 */
                 setRefConfirmationStatus(refConfStatus);
-                setLock(refLockStatus === "1" ? true : false);
+                //setLock(refLockStatus === "1" ? true : false);
+                setInitialLock(refLockStatus === "1" ? true : false);
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -108,12 +110,13 @@ const PaperReview = (props) => {
         </div>
       )}
 
-      {proceed && !lock && <Message text="You can modify your remarks and marks any time before finally locking it."
+      {refConfirmationStatus === "accepted" && proceed && !lock && !initiallyLocked && <Message text="You can modify your remarks and marks any time before finally locking it."
        variant='info' />}
-      {proceed && lock && <Message text="Your decision are already locked." variant='danger' />}
+      {proceed && !lock && initiallyLocked && <Message text="Your decisions are already locked." variant='danger' />}
+      {proceed && lock && !initiallyLocked && <Message text="Your decisions are now locked. Thank you for your response." variant='danger' />}
 
       {/* Load child components based on status */}
-      {refConfirmationStatus === "accepted" && proceed && <DataTablePaperReview fullname={fullname} refereeName={refereeName} locked={lock}/>}
+      {refConfirmationStatus === "accepted" && proceed && <DataTablePaperReview fullname={fullname} refereeName={refereeName} locked={lock} initiallyLocked={initiallyLocked}/>}
       {refConfirmationStatus === "declined" && proceed && <DeclineMessage2 fullname={fullname}/>}
       {refConfirmationStatus === "allotted" && proceed && (
         <RefereeConfirmation2
@@ -123,7 +126,8 @@ const PaperReview = (props) => {
         />
       )}
       <div className='text-center my-3'>
-      {proceed && !lock && <LockButton onLock={setLock} refereeName={refereeName}/>}
+      {/*refConfirmationStatus === "accepted" && proceed && !lock && <LockButton onLock={setLock} refereeName={refereeName}/>*/}
+      {proceed && refConfirmationStatus === "accepted" &&  !initiallyLocked && !lock && <LockButton onLock={setLock} refereeName={refereeName}/>}
       
       </div>
     </div>

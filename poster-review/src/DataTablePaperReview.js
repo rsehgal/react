@@ -221,13 +221,13 @@ const DataTablePaperReview = (prop) => {
                   rows="6" cols="50"
                   className="w-full border rounded-lg p-2"
                   placeholder={`Type your message... (max ${maxLength} characters)`}
-                  readOnly={prop.locked}
+                  readOnly={prop.locked || prop.initiallyLocked}
                 />
               </td>
               <td className='text-center'>
                 <input
                   type="number"
-                  readOnly={prop.locked}
+                  readOnly={prop.locked || prop.initiallyLocked}
                   value={item.marks || ""}
                   min="0"
                   max="10"
@@ -240,7 +240,7 @@ const DataTablePaperReview = (prop) => {
 
               <td className='text-center'>
                 <button
-                  disabled={prop.locked || loading}
+                  disabled={prop.locked || prop.initiallyLocked || loading}
                   onClick={() => handleUpdate(item)}
                   className="bg-blue-600 text-dark px-4 py-2 rounded-lg shadow hover:bg-blue-700"
                 >
