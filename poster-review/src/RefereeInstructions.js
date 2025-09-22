@@ -51,7 +51,7 @@ const RefereeInstructions = () => {
             </li>
 
             <li>
-              <span className="fw-bold text-warning">
+              <span className="fw-bold text-danger">
                 After entering the Remarks and Merit points, please click the <u>Save</u> button.
               </span>  
               <br />
