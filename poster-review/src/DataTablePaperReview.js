@@ -67,6 +67,11 @@ const DataTablePaperReview = (prop) => {
     //console.log(paper);
     //alert(`Message: ${text}\nNumber: ${number}`);
 
+    if (!paper.marks || Number(paper.marks) <= 0) {
+      alert("Please enter a merit point greater than 0 before saving.");
+      return; // stop execution
+    }
+  
     // Here you can also send to API / database instead of alert
 
     if (prop.locked) {
