@@ -11,6 +11,7 @@ const DataTable = (props) => {
   const [loading, setLoading] = useState(false);
   //const [marks, setMarks] = useState('');
   const [refereeName,setRefereeName]=useState('');
+  const [refereeFullName,setFullRefereeName]=useState('');
 
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
@@ -68,12 +69,28 @@ const DataTable = (props) => {
         const refName = jsonData[0].refereeName;
         console.log(refName);
         setRefereeName(refName);
+        
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
         setLoading(false); // Stop loading
       }
 
+
+      try {
+        //const response = await fetch(`/api/getReviewerName?refereeName=${encodeURIComponent(selectedValue)}`);
+        //const response = await fetch(`https://sympnp.org/phpNode/getData.php?refereeName=${encodeURIComponent(selectedValue)}`);
+        const response = await fetch(`https://sympnp.org/phpNode/getPosterRefereeDetails.php?hash=${encodeURIComponent(selectedValue)}`);
+        const jsonData = await response.json();
+        const refFullName = jsonData[0].refereeName;
+        console.log(refFullName);
+        
+        setFullRefereeName(refFullName);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false); // Stop loading
+      }
 
       setLoading(true); // Start loading
       try {
@@ -103,11 +120,11 @@ const DataTable = (props) => {
       </>
     )}
 
-      <h2 className='text-center  text-success'>Welcome : {refereeName}</h2>
+      <h2 className='text-center  text-success'>Welcome : {refereeFullName}</h2>
             <table border="1" className='table table-danger table-hover mb-0'>
         <thead className="thead-dark">
           <tr className='table-warning'>
-          
+          <th className='col-4 text-center'>S. No.</th>
             <th className='col-4 text-center'>Filename</th>
             <th className='col-4 text-center'>Marks</th>
             <th className='col-4 text-center'>Select</th>
@@ -119,10 +136,10 @@ const DataTable = (props) => {
           {data.map((item, index) => (
            
             <tr key={index} className={getRowColor(item.marks)}>
-             
+             <td className='col-4 text-center'>{index+1}</td>
               <td className='col-4 text-center'>{item.Filename}</td>
               <td className='col-4 text-center'>{item.marks}</td>
-              <td className='col-4 text-center'><PosterReview paper={item.Filename} refereeName={selectedValue} triggerReload={triggerReload} marks={item.marks} disabled={!isOnline}/></td>
+              <td className='col-4 text-center'><PosterReview paper={item.Filename} refereeName={refereeName} triggerReload={triggerReload} marks={item.marks} disabled={!isOnline}/></td>
              
               {/* Add more columns as needed */}
             </tr>

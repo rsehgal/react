@@ -28,8 +28,9 @@ root.render(
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter basename="/PaperReview">
-    <PaperReview /> 
+  <BrowserRouter basename="/PosterReview">
+    {/* <PaperReview />*/ }
+    <DataTable />
 </BrowserRouter>
 );
 
