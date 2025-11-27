@@ -32,8 +32,8 @@ const DataTableAdmin = (props) => {
 //console.log(location);
   const queryParams = new URLSearchParams(location.search);
   //console.log("QUERY PARAMS :"+queryParams);
-  const selectedValue = queryParams.get('refereeName');
-  
+  const selectedValue = queryParams.get('hash');
+  console.log(selectedValue);
  
   
   const getRowColor = (value) => {
@@ -67,7 +67,7 @@ const DataTableAdmin = (props) => {
       try {
         //alert(selectedValue);
         //const response = await fetch(`/api/update?refereeName=${encodeURIComponent(selectedValue)}`);
-        const response = await fetch('https://sympnp.org/phpNode/getData.php?refereeName='+selectedValue);
+        const response = await fetch('https://sympnp.org/phpNode/getData.php?hash='+selectedValue);
         const jsonData = await response.json();
         console.log(jsonData);
         setData(jsonData);
@@ -95,7 +95,7 @@ const DataTableAdmin = (props) => {
             <table border="1" className='table table-danger table-hover mb-0'>
         <thead className="thead-dark">
           <tr className='table-warning'>
-          
+          <th className='col-4 text-center'>S. No.</th>
             <th className='col-4 text-center'>Filename</th>
             <th className='col-4 text-center'>Referees</th>
             <th className='col-4 text-center'>AverageMarks</th>
@@ -108,7 +108,7 @@ const DataTableAdmin = (props) => {
           {data.map((item, index) => (
            
             <tr key={index} className={getRowColor(item.AverageMarks)}>
-             
+             <td className='col-4 text-center'>{index+1}</td>
               <td className='col-4 text-center'>{item.FileName}</td>
               <td className='col-4 text-center'>{item.Referees}</td>
               <td className='col-4 text-center'>{item.AverageMarks}</td>
