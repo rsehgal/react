@@ -52,12 +52,14 @@ const DataTableAttendance = (props) => {
     setSearchUser(event.target.value);
   };
   
-  const handleDropdownChange = async (event,uname) => {
+  //const handleDropdownChange = async (event,uname) => {
+    const handleDropdownChange = async (event,regno) => {
     setSelectedValue(event.target.value);
     //alert(event.target.value);
     try {
       //const response = await axios.get(`https://sympnp.org/phpNode/updateAttendance.php?attended=${event.target.value}&uname=${uname}`);
-      const response = await fetch(`https://sympnp.org/phpNode/updateAttendance.php?attended=${event.target.value}&uname=${uname}`);
+      //const response = await fetch(`https://sympnp.org/phpNode/updateAttendance.php?attended=${event.target.value}&uname=${uname}`);
+      const response = await fetch(`https://sympnp.org/phpNode/updateAttendance.php?attended=${event.target.value}&regno=${regno}`);
       console.log('Database update response:', response.data);
     } catch (error) {
       console.error('Error updating the database:', error);
@@ -138,7 +140,7 @@ const DataTableAttendance = (props) => {
       <hr/>
       <table className="table table-secondary">
         <tr className='red-border-box bg-secondary'>
-          <td className="col-8"> <Label> Search (uname / reg. no / FirstName / LastName) </Label></td>
+          <td className="col-8"> <Label> Search (reg. no / Name / Affiliation) </Label></td>
           <td className="col-4"><Input handleChange={handleSearchUser}/></td>
         </tr>
       </table>
@@ -151,6 +153,7 @@ const DataTableAttendance = (props) => {
           <th className='col-4 text-center'>Reg. No.</th>
             
             <th className='col-4 text-center'>Name</th>
+            <th className='col-4 text-center'>FeeToCollect</th>
             <th className='col-4 text-center'>Select</th>
             
             {/* Add more headers as needed */}
@@ -160,11 +163,13 @@ const DataTableAttendance = (props) => {
           {data.map((item, index) => (
            
             <tr key={index} className={getRowColor(item.attended)}>
-               <td className='col-4 text-center'>{index}</td>
-             <td className='col-4 text-center'>{item.regno}</td>
+               <td className='col-4 text-center'>{index+1}</td>
+             <td className='col-4 text-center'>{item.Reg_No}</td>
               
-              <td className='col-4 text-center'>{item.Initials+" "+item.FirstName+" "+item.LastName}</td>
-             <td><Select options={dropdownData.attendance} defaultValue={item.attended} handleChange={(event)=>handleDropdownChange(event,item.uname)} disabled={disabled} triggerReload={triggerReload}/></td>
+              {/*<td className='col-4 text-center'>{item.Initials+" "+item.FirstName+" "+item.LastName}</td>*/}
+              <td className='col-4 text-center'>{item.FullName}</td>
+              <td className='col-4 text-center'>{item.FeeToCollect}</td>
+             <td><Select options={dropdownData.attendance} defaultValue={item.attended} handleChange={(event)=>handleDropdownChange(event,item.Reg_No)} disabled={disabled} triggerReload={triggerReload}/></td>
                            
               {/* Add more columns as needed */}
             </tr>
