@@ -34,6 +34,7 @@ function PosterReview(props) {
   return (
     <div className="App">
       <select value={marks} onChange={handleDropdownChange} disabled={disabled}>
+        <option value="-99">-99</option>
         <option value="0">0</option>
         <option value="1">1</option>
         <option value="2">2</option>

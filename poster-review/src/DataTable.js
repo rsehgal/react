@@ -52,6 +52,7 @@ const DataTable = (props) => {
 
   const getRowColor = (value) => {
     if (parseInt(value,10) > 0) return 'table-success'; // Red for low values
+    if (parseInt(value,10) < 0) return 'table-secondary'; // Red for low values
     
   };
 
