@@ -162,9 +162,9 @@ useEffect(() => {
            
             <tr key={index} >
                <td className='col-4 text-center'>{index}</td>
-             <td className='col-4 text-center'>{item.regno}</td>
+             <td className='col-4 text-center'>{item.Reg_No}</td>
               
-              <td className='col-4 text-center'>{item.Initials+" "+item.FirstName+" "+item.LastName}</td>
+              <td className='col-4 text-center'>{item.FullName}</td>
                            
               {/* Add more columns as needed */}
             </tr>
