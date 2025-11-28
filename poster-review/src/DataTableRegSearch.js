@@ -139,7 +139,7 @@ useEffect(() => {
       <hr/>
       <table className="table table-secondary">
         <tr className='red-border-box bg-secondary'>
-          <td className="col-8"> <Label> Search (uname / reg. no / FirstName / LastName) </Label></td>
+          <td className="col-8"> <Label> Search (reg. no / FirstName / LastName / Affiliation) </Label></td>
           <td className="col-4"><Input handleChange={handleSearchUser}/></td>
         </tr>
       </table>
